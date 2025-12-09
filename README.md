@@ -1,16 +1,33 @@
-# React + Vite
+# AI-Powered Educational SNS (教育用AI-SNS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="public/vite.svg" alt="Logo" width="100" />
+</p>
 
-Currently, two official plugins are available:
+## 📖 概要 (Overview)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**「監視ではなく、自律的な判断力を育む」**
 
-## React Compiler
+本プロジェクトは、小中学生が安全な環境でSNSの使い方や情報モラルを学ぶための教育用プラットフォームのフロントエンドデモです。
+投稿しようとした言葉をAIがリアルタイムで分析し、攻撃的・不適切な表現が含まれる場合にフィードバックを行うことで、生徒の「気づき」を促します。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ 主な機能 (Features)
 
-## Expanding the ESLint configuration
+* **⚡️ AIリアルタイム指導**
+    * 生徒がメッセージを入力すると、送信前にAIが内容を解析（デモ）。
+    * 不適切な言葉を検知し、未然にブロックします。
+* **🛡️ 「なぜ？」のフィードバック**
+    * 単に禁止するのではなく、「なぜその言葉が相手を傷つけるのか」を提示。
+* **📊 教員用ダッシュボード**
+    * クラス全体の投稿傾向やアラート発生状況を可視化。
+    * いじめやトラブルの予兆を早期に発見可能です。
+* **🎨 モダンなUIデザイン**
+    * **Glassmorphism（すりガラス風デザイン）** を採用し、先進性と親しみやすさを両立。
+    * CSS Modulesによるコンポーネント指向のスタイリング。
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ 使用技術 (Tech Stack)
+
+* **Frontend Framework:** [React](https://reactjs.org/)
+* **Build Tool:** [Vite](https://vitejs.dev/)
+* **Styling:** CSS Modules (Standard CSS3 with Variables)
+* **Deployment:** GitHub Pages
