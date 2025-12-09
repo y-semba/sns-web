@@ -1,0 +1,73 @@
+.flowSection {
+  background-color: transparent;
+  /* 透明 */
+}
+
+.flowContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stepCard {
+  /* 👇 すりガラス効果 */
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  border-radius: 16px;
+  padding: 30px;
+  text-align: left;
+  position: relative;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.stepNum {
+  background: var(--gradient-ai);
+  color: white;
+  font-weight: bold;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.stepTitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.stepDesc {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.arrowIcon {
+  text-align: center;
+  color: var(--color-primary);
+  /* 青くする */
+  opacity: 0.5;
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.stepCard:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,101 @@
+.meritSection {
+  background-color: transparent;
+  /* 透明 */
+}
+
+.subTitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #444;
+  /* 背景に合わせて少し濃く */
+  margin-bottom: 60px;
+  line-height: 1.8;
+}
+
+.meritContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.meritBox {
+  display: flex;
+  /* 👇 すりガラス効果 */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+
+.meritBox:hover {
+  transform: scale(1.02);
+  /* 少し拡大 */
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* 以下は以前と同じ */
+.imageAreaStudent,
+.imageAreaTeacher {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  flex-shrink: 0;
+}
+
+.imageAreaStudent {
+  background: linear-gradient(135deg, #64b5f6, #42a5f5);
+}
+
+/* グラデーションに変更 */
+.imageAreaTeacher {
+  background: linear-gradient(135deg, #81c784, #66bb6a);
+}
+
+.textArea {
+  padding: 30px;
+  text-align: left;
+}
+
+.textArea h3 {
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.textArea p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .meritBox {
+    flex-direction: column;
+  }
+
+  .imageAreaStudent,
+  .imageAreaTeacher {
+    width: 100%;
+    height: 60px;
+  }
+}
+
+.arrow {
+  font-size: 2rem;
+  color: rgba(0, 91, 234, 0.3);
+  font-weight: bold;
+}
+
+/* 矢印も少し青く */

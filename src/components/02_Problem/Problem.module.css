@@ -1,0 +1,37 @@
+.problemList {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 1.15rem;
+}
+
+.problemList li {
+  /* 👇 ここを「すりガラス」に変更 */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  padding: 20px 25px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  /* 少し丸く */
+  box-shadow: 0 4px 15px rgba(0, 91, 234, 0.05);
+  /* 影に少し青みを混ぜる */
+  transition: transform 0.3s;
+}
+
+.problemList li:hover {
+  transform: translateX(5px);
+  /* ホバーで少し右に動く */
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.problemList li::before {
+  content: '✓';
+  color: #dc3545;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 15px;
+}

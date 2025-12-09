@@ -1,0 +1,156 @@
+/* セクション全体：背景は透明（App.cssの背景が見えるように） */
+.featuresSection {
+  background-color: transparent;
+}
+
+/* === 上段：生徒向け機能（カードグリッド） === */
+
+/* カードを並べるグリッドレイアウト */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* 幅に合わせて自動折り返し */
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* カードのデザイン（すりガラス風） */
+.card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 15px 40px rgba(0, 91, 234, 0.15);
+  /* 青い影 */
+  border-color: var(--color-primary);
+  /* 枠線を青く */
+}
+
+/* アイコン（絵文字）の装飾 */
+.iconWrapper {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: rgba(240, 247, 255, 0.8);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.cardText {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* === 下段：先生向け機能（テキスト＋画像） === */
+
+/* 生徒向け・先生向けの区切り見出し */
+.subHeading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  /* App.cssで定義した青 */
+  margin-top: 80px;
+  margin-bottom: 40px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* 先生向けエリア全体 */
+.teacherSection {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.1);
+  /* 薄い区切り線 */
+}
+
+/* 左右レイアウト（左：テキスト、右：画像） */
+.teacherLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+/* PCサイズ以上なら横並びにする */
+@media (min-width: 900px) {
+  .teacherLayout {
+    grid-template-columns: 1fr 1.2fr;
+    /* 画像側を少し広く */
+  }
+}
+
+/* 説明テキスト部分 */
+.featureBlock {
+  margin-bottom: 30px;
+}
+
+.featureBlock:last-child {
+  margin-bottom: 0;
+}
+
+.blockTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.featureBlock p {
+  margin: 0;
+  color: #555;
+  line-height: 1.7;
+  padding-left: 0;
+  /* 必要なら調整 */
+}
+
+/* 画像の配置エリア */
+.dashboardWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ダッシュボード画像自体のスタイル */
+.dashboardImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  /* 角丸 */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  /* 影をつけて浮き上がらせる */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  /* 薄い枠線 */
+  background-color: #fff;
+  /* 画像が透過PNGだった場合のための背景白 */
+}

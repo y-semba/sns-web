@@ -1,0 +1,55 @@
+.solution {
+  /* background-color: #f8f9fa; */
+  /* Heroと同じ背景色で統一感を */
+}
+
+.solutionContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* スマホでは縦並び（デフォルト） */
+  gap: 40px;
+  align-items: center;
+  text-align: left;
+}
+
+/* 画面幅が 768px 以上（タブレット・PC）の場合 */
+@media (min-width: 768px) {
+  .solutionContent {
+    grid-template-columns: 1fr 1fr;
+    /* 2カラムレイアウト */
+  }
+}
+
+.imagePlaceholder {
+  width: 100%;
+  /* 以前の height: 400px; や background, border は削除します */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 追加した画像自体のスタイル */
+.solutionImage {
+  width: 100%;
+  /* 親要素に合わせて伸縮 */
+  height: auto;
+  /* アスペクト比を維持 */
+  max-width: 500px;
+  /* PC表示時に大きすぎないように制限（お好みで調整してください） */
+  border-radius: 12px;
+  /* 画像の角を少し丸くする */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  /* 少し影をつけてリッチに見せる */
+}
+
+.textBlock h3 {
+  font-size: 1.5rem;
+  color: #007bff;
+  /* メインカラー */
+  margin-bottom: 10px;
+}
+
+.textBlock p {
+  font-size: 1.1rem;
+  color: #444;
+}

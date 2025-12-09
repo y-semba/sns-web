@@ -1,0 +1,76 @@
+/* =========================================
+   App.css - グローバルデザイン設定
+========================================= */
+
+/* 🎨 カラーパレット定義 (CSS変数) */
+:root {
+  /* メインカラー：信頼と知性のディープブルー */
+  --color-primary: #005bea;
+  /* アクセント：AI/未来を感じさせる鮮やかな水色〜紫のグラデーション */
+  --gradient-ai: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+  /* 背景色：清潔感のあるオフホワイト */
+  --color-bg-light: #f8fbff;
+  /* テキスト色 */
+  --color-text-main: #333;
+  --color-text-sub: #666;
+}
+
+/* 全体の基本設定 */
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+  color: var(--color-text-main);
+  background-color: var(--color-bg-light);
+
+  /* 🌐 全体にうっすらと「データネットワーク」のような模様を入れる */
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0, 91, 234, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 198, 251, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+  /* スクロールしても背景模様を固定 */
+}
+
+html {
+  scroll-behavior: smooth;
+  padding-top: 70px;
+  /* ヘッダーの高さ分空ける */
+}
+
+/* コンテンツ幅の共通設定 */
+.sectionContainer {
+  width: 100%;
+  max-width: 1000px;
+  /* 少し広げました */
+  margin: 0 auto;
+  padding: 100px 20px;
+  /* 上下の余白を増やしてゆったりと */
+  box-sizing: border-box;
+  position: relative;
+  /* 背景装飾のために必要 */
+}
+
+/* セクションタイトルの共通デザイン */
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 60px;
+  color: var(--color-text-main);
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* タイトルの下にAIっぽいアクセント線を入れる */
+.sectionTitle::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--gradient-ai);
+  margin: 20px auto 0 auto;
+  border-radius: 2px;
+}

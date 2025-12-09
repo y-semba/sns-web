@@ -1,0 +1,60 @@
+.footer {
+  background-color: #333;
+  /* 濃いグレーで引き締める */
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+  margin-top: auto;
+  /* コンテンツが少なくても一番下に配置されるように */
+}
+
+.footerContent {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  /* リンク間の隙間 */
+  flex-wrap: wrap;
+  /* スマホで折り返す */
+}
+
+.link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #777;
+  margin: 0;
+}
+
+/* スマホ向けの微調整 */
+@media (max-width: 600px) {
+  .links {
+    flex-direction: column;
+    /* 縦並びにする */
+    gap: 15px;
+  }
+}

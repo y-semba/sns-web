@@ -1,0 +1,136 @@
+/* Heroセクション全体 */
+.heroSection {
+  /* 上下左右中央揃えの設定 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 100px;
+  /* 上の余白を多めに */
+  padding-bottom: 120px;
+  text-align: center;
+  /* 文字を中央揃え */
+  position: relative;
+  /* 背景装飾のために必要 */
+  overflow: visible;
+}
+
+/* コンテンツエリア（テキスト部分） */
+.contentArea {
+  max-width: 800px;
+  /* 横に広がりすぎないように制限 */
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  /* 背景より手前に */
+}
+
+/* キャッチコピー */
+.catchCopy {
+  font-size: 3.5rem;
+  /* サイズを大きくしてインパクト重視 */
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 40px;
+  color: #222;
+  letter-spacing: 0.05em;
+}
+
+/* "AI"の部分を強調するグラデーション文字 */
+.highlight {
+  background: var(--gradient-ai);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* 説明文 */
+.description {
+  font-size: 1.2rem;
+  color: var(--color-text-sub);
+  margin-bottom: 50px;
+  line-height: 2;
+}
+
+/* ボタンエリア */
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  /* ボタンも中央揃え */
+  gap: 30px;
+}
+
+.button {
+  display: inline-block;
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.buttonPrimary {
+  background: var(--gradient-ai);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 91, 234, 0.3);
+  border: none;
+}
+
+.buttonPrimary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 91, 234, 0.4);
+}
+
+.buttonSecondary {
+  background-color: white;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.buttonSecondary:hover {
+  background-color: #f0f7ff;
+}
+
+/* 背景の装飾的な円（中央に配置） */
+.decoCircle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: var(--gradient-ai);
+  opacity: 0.08;
+  /* 薄くして文字の邪魔にならないように */
+  filter: blur(100px);
+  /* 強くぼかす */
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+  .catchCopy {
+    font-size: 2.2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    text-align: left;
+    /* スマホでは説明文は左寄せの方が読みやすい場合も（お好みで） */
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    /* ボタンを縦並びに */
+    gap: 15px;
+  }
+
+  .decoCircle {
+    width: 300px;
+    height: 300px;
+  }
+}
