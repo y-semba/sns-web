@@ -6,7 +6,7 @@ const Solution = () => {
   return (
     <section className={`${styles.solution} sectionContainer`}>
       <h2 className="sectionTitle">
-        [あなたのSNS名]が、安全な「実践の場」を提供します。
+        学習用SNSが、安全な「実践の場」を提供します。
       </h2>
 
       <div className={styles.solutionContent}>
