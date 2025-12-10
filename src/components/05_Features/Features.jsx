@@ -12,12 +12,12 @@ const Features = () => {
       </h2>
 
       {/* === 上段：生徒向け機能（カードで表示） === */}
-      <h3 className={styles.subHeading}>👨‍🎓 生徒向け機能</h3>
+      <h3 className={styles.subHeading}>👨‍🎓 子ども向け機能</h3>
 
       <div className={styles.featureGrid}>
         {/* 機能1 */}
         <div className={styles.card}>
-          <div className={styles.iconWrapper}>🤖</div>
+          <div className={styles.iconWrapper}>❓</div>
           <h3 className={styles.cardTitle}>AIリアルタイム指導</h3>
           <p className={styles.cardText}>
             投稿前にAIが文章を解析。「攻撃的」「いじめ」「個人情報」などのリスクを検知し、送信を未然にブロックします。

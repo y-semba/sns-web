@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         {/* サイト名（ロゴ） */}
-        <h3 className={styles.logo}>学習用SNS</h3>
+        <h3 className={styles.logo}>Cotori</h3>
 
         {/* フッターリンク */}
         <ul className={styles.links}>
@@ -18,7 +18,7 @@ const Footer = () => {
 
         {/* コピーライト */}
         <p className={styles.copyright}>
-          &copy; {new Date().getFullYear()} 学習用SNS All Rights Reserved.
+          &copy; {new Date().getFullYear()} Cotori All Rights Reserved.
         </p>
       </div>
     </footer>

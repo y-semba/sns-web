@@ -6,8 +6,9 @@ const Solution = () => {
   return (
     <section className={`${styles.solution} sectionContainer`}>
       <h2 className="sectionTitle">
-        学習用SNSが、安全な「実践の場」を提供します。
+        Cotoriが、安全な「実践の場」を提供します。
       </h2>
+      {/* 実践の場 青文字？*/}
 
       <div className={styles.solutionContent}>
         {/* PCでは左に画像、右にテキスト */}
@@ -21,11 +22,12 @@ const Solution = () => {
         <div className={styles.textBlock}>
           <h3>AIによるリアルタイム指導</h3>
           <p>
-            生徒が攻撃的な言葉や倫理的に不適切な言葉を投稿しようとすると、AIが瞬時に分析します。
+            生徒が言葉を投稿しようとすると、AIが瞬時に分析します。
+            攻撃性・倫理性はもちろん文脈の適切さまで判断して、理由やアドバイスを返答します。
           </p>
-          <h3>送信ブロックと「理由」の提示</h3>
+          <h3>送信ブロック</h3>
           <p>
-            投稿をブロックすると同時に「なぜその言葉が良くないのか」をAIが分かりやすくフィードバック。生徒自身に「気づき」を与えます。
+            投稿をブロックすると同時に「なぜその言葉が良くないのか」をAIが分かりやすくフィードバック。子どもたち自身に気づきを与えます。
           </p>
         </div>
       </div>

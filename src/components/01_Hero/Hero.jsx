@@ -9,10 +9,10 @@ const Hero = () => {
       <div className={styles.contentArea}>
         <h1 className={styles.catchCopy}>
           その言葉、<span className={styles.highlight}>AI</span>が見守ります。<br />
-          株式会社FODISが提供する<br />新しいSNS教育。
+          私たちが提供する<br />新しいSNS教育。
         </h1>
         <p className={styles.description}>
-          「学習用SNS」は、AIによるリアルタイムフィードバックで、<br />
+          Cotoriは、AIによるリアルタイムフィードバックで、<br />
           子どもたちの「自律的な判断力」を育む教育プラットフォームです。<br />
           監視ではなく、気づきを。
         </p>

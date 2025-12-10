@@ -5,11 +5,11 @@ const Merit = () => {
   return (
     <section className={`${styles.meritSection} sectionContainer`}>
       <h2 className="sectionTitle">
-        導入によって実現する未来
+        私たちが実現する未来
       </h2>
       <p className={styles.subTitle}>
         目指すのは、AIによる監視ではなく<br />
-        生徒一人ひとりの「自律的な判断力」の育成です。
+        子どもたちの思考力・判断力・表現力の育成です。
       </p>
 
       <div className={styles.meritContainer}>
@@ -17,12 +17,12 @@ const Merit = () => {
         <div className={styles.meritBox}>
           <div className={styles.imageAreaStudent}>
             {/* ここにイラストなどが入るイメージ */}
-            <span>👨‍🎓 生徒</span>
+            <span>👨‍🎓 子ども</span>
           </div>
           <div className={styles.textArea}>
-            <h3>失敗から学び、<br />自分で考える力がつく</h3>
+            <h3>失敗して学び、<br />自分で考える力がつく</h3>
             <p>
-              送信ボタンを押した瞬間にフィードバックを受けることで、「何がダメだったのか」をその場で学習。<br />
+              チェックボタンを押した瞬間にフィードバックを受けることで、何がダメだったのかをその場で学習。<br />
               繰り返すうちに、AIの補助がなくとも適切な言葉選びができるようになります。
             </p>
           </div>
@@ -37,7 +37,7 @@ const Merit = () => {
             <span>🏫 学校・教員</span>
           </div>
           <div className={styles.textArea}>
-            <h3>トラブルを未然に防ぎ、<br />本質的な指導に集中できる</h3>
+            <h3>トラブルを未然に防ぎつつ、<br />ほかの公務に集中できる</h3>
             <p>
               SNSトラブルの事後対応に追われる時間を削減。<br />
               ダッシュボードで生徒の傾向を把握できるため、データに基づいた効果的な指導が可能になります。
