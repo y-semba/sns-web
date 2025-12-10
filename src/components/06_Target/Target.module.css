@@ -1,0 +1,58 @@
+.targetSection {
+  background-color: #f9f9f9;
+  /* ほんのりグレーで区切りをつける */
+}
+
+.targetWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  /* スマホで縦並びにする */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.targetItem {
+  flex: 1;
+  min-width: 280px;
+  /* スマホで狭くなりすぎないように */
+  max-width: 350px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* 丸いアイコン背景 */
+.circle {
+  width: 120px;
+  height: 120px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 4px solid #e3f2fd;
+  /* 薄い青の枠線 */
+}
+
+.icon {
+  font-size: 3rem;
+}
+
+.targetTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.targetDesc {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.8;
+  text-align: left;
+  /* 文章は読みやすく左寄せ（お好みでcenterでもOK） */
+}
