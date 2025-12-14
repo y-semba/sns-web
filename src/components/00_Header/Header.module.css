@@ -75,6 +75,26 @@
   background-color: #0056b3;
 }
 
+/* 意味設計リンクを目立たせる */
+.philosophyLink {
+  color: var(--color-primary) !important;
+  font-weight: bold !important;
+  border-bottom: 2px solid transparent;
+}
+
+.philosophyLink:hover {
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.logoImage {
+  /* ヘッダーの高さに合わせて調整してください */
+  height: 40px;
+  width: auto;
+  /* 高さに合わせて幅は自動調整 */
+  display: block;
+  /* 画像の下に隙間ができるのを防ぐ */
+}
+
 /* スマホ対応：画面が狭いときはメニューを隠す（簡易対応） */
 @media (max-width: 768px) {
   .nav {

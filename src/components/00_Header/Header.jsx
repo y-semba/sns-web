@@ -1,27 +1,33 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
+import logoImage from './FODIS.png';
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        {/* ロゴエリア */}
         <div className={styles.logo}>
-          <a href="#">株式会社FODIS</a>
+          <Link to="/"><img
+            src={logoImage}
+            alt="株式会社FODIS"
+            className={styles.logoImage}
+          /></Link>
         </div>
 
-        {/* ナビゲーションメニュー */}
         <nav className={styles.nav}>
           <ul>
-            {/* <li><a href="#problem">課題</a></li>
-            <li><a href="#solution">解決策</a></li>
-            <li><a href="#features">機能</a></li>
-            <li><a href="#flow">導入の流れ</a></li> */}
-            {/* お問い合わせボタンを目立たせる */}
             <li>
-              <a href="#cta" className={styles.contactButton}>
+              <Link to="/philosophy" className={styles.navLink}>
+                Cotoriの想い
+              </Link>
+            </li>
+
+            {/* お問い合わせボタンのリンク先を修正 */}
+            <li>
+              <Link to="/contact" className={styles.contactButton}>
                 お問い合わせ
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

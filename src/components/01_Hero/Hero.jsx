@@ -9,7 +9,7 @@ const Hero = () => {
       <div className={styles.contentArea}>
         <h1 className={styles.catchCopy}>
           その言葉、<span className={styles.highlight}>AI</span>が見守ります。<br />
-          私たちが提供する<br />新しいSNS教育。
+          Cotoriが提供する<br />新しいSNS教育。
         </h1>
         <p className={styles.description}>
           Cotoriは、AIによるリアルタイムフィードバックで、<br />

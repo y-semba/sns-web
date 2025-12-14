@@ -1,0 +1,128 @@
+.pageWrapper {
+  min-height: 100vh;
+  background-color: var(--color-bg-light);
+  /* App.cssの背景を引き継ぐ */
+  padding-top: 80px;
+}
+
+.main {
+  padding-bottom: 100px;
+}
+
+/* タイトルエリア */
+.titleArea {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.subTitle {
+  display: block;
+  color: var(--color-primary);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* フォームのコンテナ（すりガラス風カード） */
+.formContainer {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.formGroup label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 「必須」バッジ */
+.required {
+  background: #ff5252;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 91, 234, 0.1);
+  background: #fff;
+}
+
+/* 送信ボタン */
+.buttonArea {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.submitButton {
+  background: var(--gradient-ai);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 15px 50px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 91, 234, 0.3);
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 91, 234, 0.4);
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+  .formContainer {
+    padding: 20px;
+  }
+}

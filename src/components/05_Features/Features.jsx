@@ -12,21 +12,21 @@ const Features = () => {
       </h2>
 
       {/* === 上段：生徒向け機能（カードで表示） === */}
-      <h3 className={styles.subHeading}>👨‍🎓 子ども向け機能</h3>
+      <h3 className={styles.subHeading}>子ども向け機能</h3>
 
       <div className={styles.featureGrid}>
         {/* 機能1 */}
         <div className={styles.card}>
-          <div className={styles.iconWrapper}>❓</div>
+          <div className={styles.iconWrapper}>💡</div>
           <h3 className={styles.cardTitle}>AIリアルタイム指導</h3>
           <p className={styles.cardText}>
-            投稿前にAIが文章を解析。「攻撃的」「いじめ」「個人情報」などのリスクを検知し、送信を未然にブロックします。
+            投稿前にAIが文章を解析。「攻撃的」「いじめ」「文脈逸脱」などのリスクを検知し、送信を未然にブロックします。
           </p>
         </div>
 
         {/* 機能2 */}
         <div className={styles.card}>
-          <div className={styles.iconWrapper}>💡</div>
+          <div className={styles.iconWrapper}>❓</div>
           <h3 className={styles.cardTitle}>「なぜ？」のフィードバック</h3>
           <p className={styles.cardText}>
             単に禁止するのではなく、「なぜその言葉が相手を傷つけるのか」を具体的に提示。生徒の自律的な判断力を育てます。
@@ -36,7 +36,7 @@ const Features = () => {
 
       {/* === 下段：先生向け機能（テキスト＋画像） === */}
       <div className={styles.teacherSection}>
-        <h3 className={styles.subHeading}>👩‍🏫 先生向け管理機能</h3>
+        <h3 className={styles.subHeading}>先生向け管理機能</h3>
 
         <div className={styles.teacherLayout}>
           {/* 左側：説明テキスト（元々のカードの文章をここにまとめました） */}
@@ -44,13 +44,14 @@ const Features = () => {
             <div className={styles.featureBlock}>
               <h4 className={styles.blockTitle}>📊 管理ダッシュボード</h4>
               <p>
-                ブロックされた投稿の内容や回数を可視化。どの生徒がトラブルのリスクを抱えているか、ひと目で把握できます。
+                グループの発言内容をAIが解析。指導の必要なタイミングを教えてくれます。
+                ブロックされた投稿の内容を、ひと目で把握できます。
               </p>
             </div>
             <div className={styles.featureBlock}>
-              <h4 className={styles.blockTitle}>🏫 クラス別クローズド環境</h4>
+              <h4 className={styles.blockTitle}>🏫 クローズドな環境</h4>
               <p>
-                学校やクラス単位で独立した環境を提供。外部の不特定多数と接触することなく、安全にSNS体験を行えます。
+                学校やクラス単位で独立した環境を提供。外部の不特定多数と接触することなく、安全にSNS学習を行えます。
               </p>
             </div>
           </div>

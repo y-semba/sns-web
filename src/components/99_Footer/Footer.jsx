@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
 const Footer = () => {
@@ -13,7 +14,10 @@ const Footer = () => {
           <li><a href="#company" className={styles.link}>運営会社</a></li>
           <li><a href="#privacy" className={styles.link}>プライバシーポリシー</a></li>
           <li><a href="#terms" className={styles.link}>利用規約</a></li>
-          <li><a href="#contact" className={styles.link}>お問い合わせ</a></li>
+          <li><Link to="/contact" className={styles.link}>
+            お問い合わせ
+          </Link>
+          </li>
         </ul>
 
         {/* コピーライト */}

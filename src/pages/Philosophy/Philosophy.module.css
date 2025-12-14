@@ -1,0 +1,178 @@
+.pageWrapper {
+  min-height: 100vh;
+  /* App.cssの背景を引き継ぐ */
+  background-color: var(--color-bg-light);
+  padding-top: 80px;
+  /* ヘッダー分 */
+}
+
+.main {
+  padding-bottom: 100px;
+}
+
+/* タイトルエリア */
+.titleArea {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.subTitle {
+  display: block;
+  color: var(--color-primary);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.highlight {
+  color: var(--color-primary);
+  /* 小鳥っぽく少し跳ねさせる */
+  display: inline-block;
+  transform: rotate(-3deg);
+}
+
+.intro {
+  font-size: 1.1rem;
+  line-height: 2;
+  color: #555;
+}
+
+/* ストーリーエリア（タイムライン） */
+.storyContainer {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 0;
+}
+
+/* 真ん中の線 */
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 30px;
+  /* スマホでの位置 */
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-primary), #00c6fb);
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .line {
+    left: 50%;
+    /* PCなら真ん中 */
+    transform: translateX(-50%);
+  }
+}
+
+.storyBlock {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* アイコン（丸） */
+.iconCircle {
+  width: 60px;
+  height: 60px;
+  background: white;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* テキストボックス */
+.textBox {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  padding: 25px;
+  margin-left: 30px;
+  flex: 1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.textBox h3 {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.textBox p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* PCレイアウト：ジグザグにする */
+@media (min-width: 768px) {
+  .storyBlock:nth-child(odd) {
+    flex-direction: row-reverse;
+    /* 奇数は右にテキスト */
+  }
+
+  .storyBlock:nth-child(odd) .textBox h3 {
+    margin-left: 0;
+    /* margin-right: 40px; */
+    text-align: right;
+    /* テキスト右寄せ */
+  }
+
+  .storyBlock:nth-child(even) .textBox {
+    margin-left: 40px;
+  }
+
+  /* アイコンを真ん中に配置するための調整 */
+  .line {
+    left: 50%;
+  }
+
+  /* アイコンは中央固定ではないので、flexの配置で調整される */
+}
+
+/* 締めくくり */
+.conclusion {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.conclusion p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+.backButton {
+  display: inline-block;
+  padding: 12px 30px;
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.backButton:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
