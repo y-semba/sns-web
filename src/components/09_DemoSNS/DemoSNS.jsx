@@ -18,7 +18,7 @@ const DemoSNS = () => {
   const USE_BACKEND_API = import.meta.env.VITE_USE_BACKEND_API === 'true';
 
   // デモモードかどうか（デモ用の場合は固定history、本番用は実際の会話履歴を使用）
-  const IS_DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== 'false'; // デフォルトはtrue
+  const IS_DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== 'true'; // デフォルトはtrue
 
   // 固定のhistory（太郎君の投稿のみ）
   const fixedHistory = [
@@ -52,16 +52,25 @@ const DemoSNS = () => {
 
   // Gemini APIを呼び出す
   const callGemini = async (prompt) => {
-    if (!GEMINI_API_KEY) {
+    if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
       throw new Error('GEMINI_API_KEYが設定されていません。.envファイルにVITE_GEMINI_API_KEYを設定してください。');
     }
 
-    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+    try {
+      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY.trim());
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
-    return extractJson(responseText);
+      const result = await model.generateContent(prompt);
+      const responseText = result.response.text();
+      return extractJson(responseText);
+    } catch (error) {
+      // クォータ制限エラーの場合、分かりやすいメッセージに変換
+      const errorMsg = error.message || String(error);
+      if (errorMsg.includes('429') || errorMsg.includes('quota') || errorMsg.includes('Quota exceeded')) {
+        throw new Error('Gemini APIの利用制限に達しました。無料プランの制限に達している可能性があります。しばらく待ってから再度お試しください。または、OpenAI APIに切り替えることもできます。');
+      }
+      throw error;
+    }
   };
 
   // OpenAI APIを呼び出す
@@ -217,12 +226,19 @@ const DemoSNS = () => {
         aiResponse = data;
       } else {
         // フロントエンドから直接AIを呼び出す
-        const prompt = generatePrompt(text, fixedHistory);
-
+        // APIキーが設定されていない場合はエラー
         if (AI_PROVIDER === 'openai') {
+          if (!OPENAI_API_KEY || OPENAI_API_KEY.trim() === '') {
+            throw new Error('OpenAI APIキーが設定されていません。.envファイルにVITE_OPENAI_API_KEYを設定するか、バックエンドAPIを使用してください（VITE_USE_BACKEND_API=true）。');
+          }
+          const prompt = generatePrompt(text, fixedHistory);
           aiResponse = await callOpenAI(prompt);
         } else {
           // デフォルトはGemini
+          if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
+            throw new Error('Gemini APIキーが設定されていません。.envファイルにVITE_GEMINI_API_KEYを設定するか、バックエンドAPIを使用してください（VITE_USE_BACKEND_API=true）。');
+          }
+          const prompt = generatePrompt(text, fixedHistory);
           aiResponse = await callGemini(prompt);
         }
 
@@ -260,9 +276,36 @@ const DemoSNS = () => {
       setAiCheckResult(result);
     } catch (error) {
       console.error('AIチェックエラー:', error);
+
+      // エラーメッセージを分かりやすく変換
+      let errorMessage = error.message || 'AIチェック中にエラーが発生しました。';
+
+      // クォータ制限エラー（429）の場合、より詳しい情報を表示
+      const errorMsgLower = errorMessage.toLowerCase();
+      if (errorMsgLower.includes('利用制限') || errorMsgLower.includes('quota') || errorMsgLower.includes('429') || errorMsgLower.includes('exceeded')) {
+        errorMessage = '⚠️ APIの利用制限に達しました\n\n' +
+          '【対処方法】\n' +
+          '1. しばらく待ってから再度お試しください（数分〜数時間）\n' +
+          '2. OpenAI APIに切り替える（.envでVITE_AI_PROVIDER=openaiに設定）\n' +
+          '3. 別のAPIキーを使用する\n' +
+          '4. バックエンドAPIを使用する（VITE_USE_BACKEND_API=trueに設定）\n\n' +
+          '※ このエラーは、APIキーの1日の利用制限に達した場合に表示されます。';
+      }
+
+      // APIキーが設定されていない場合のエラー
+      if (errorMessage.includes('APIキーが設定されていません')) {
+        errorMessage = '⚠️ APIキーが設定されていません\n\n' +
+          '【対処方法】\n' +
+          '1. .envファイルにAPIキーを設定する\n' +
+          '   - Gemini: VITE_GEMINI_API_KEY=あなたのAPIキー\n' +
+          '   - OpenAI: VITE_OPENAI_API_KEY=あなたのAPIキー\n' +
+          '2. バックエンドAPIを使用する（VITE_USE_BACKEND_API=trueに設定）\n' +
+          '3. 開発サーバーを再起動する（環境変数の変更を反映するため）';
+      }
+
       setAiCheckResult({
         isOk: false,
-        feedbackLines: [`エラー: ${error.message}`],
+        feedbackLines: [errorMessage],
         temperature: 0,
         level: 'danger',
         error: true
@@ -394,17 +437,12 @@ const DemoSNS = () => {
               <div className={styles.feedback}>
                 {aiCheckResult.feedbackLines && aiCheckResult.feedbackLines.length > 0 ? (
                   aiCheckResult.feedbackLines.map((line, index) => (
-                    <p key={index}>{line}</p>
+                    <p key={index} style={{ whiteSpace: 'pre-line' }}>{line}</p>
                   ))
                 ) : (
                   <p>{aiCheckResult.isOk ? '✅ 問題ありません。このまま投稿できます。' : '⚠️ 問題が検出されました。'}</p>
                 )}
               </div>
-              {aiCheckResult.error && (
-                <div className={styles.errorMessage}>
-                  <p>エラーが発生しました。もう一度お試しください。</p>
-                </div>
-              )}
             </div>
           )}
 
