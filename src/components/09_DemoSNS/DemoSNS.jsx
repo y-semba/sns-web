@@ -14,7 +14,7 @@ const DemoSNS = () => {
   const AI_PROVIDER = import.meta.env.VITE_AI_PROVIDER || 'gemini'; // 'gemini' or 'openai'
   const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
   const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY || '';
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002';
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
   const USE_BACKEND_API = import.meta.env.VITE_USE_BACKEND_API === 'true';
 
   // デモモードかどうか（デモ用の場合は固定history、本番用は実際の会話履歴を使用）
