@@ -137,7 +137,7 @@ app.post('/api/check-message', async (req, res) => {
 });
 
 // API以外のあらゆるアクセスに対してReactのindex.htmlを返す
-app.get('*', (req, res) => {
+app.get('(.*)', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 

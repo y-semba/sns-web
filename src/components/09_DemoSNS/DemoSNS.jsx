@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import styles from './DemoSNS.module.css';
+import styles from './DemoSNS.module.css'; // GoogleGenerativeAIのインポートは不要になりました
 
 const DemoSNS = () => {
   const [postText, setPostText] = useState('');
@@ -8,17 +7,8 @@ const DemoSNS = () => {
   const [isChecking, setIsChecking] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  // AI設定（環境変数から取得）
-  // デモ用: フロントエンドから直接AI APIに接続（USE_BACKEND_API=false）
-  // 本番用: バックエンドAPI経由で接続（USE_BACKEND_API=true、認証付き）
-  const AI_PROVIDER = import.meta.env.VITE_AI_PROVIDER || 'gemini'; // 'gemini' or 'openai'
-  const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
-  const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY || '';
+  // APIのURL（環境変数がなければ相対パスを使用）
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
-  const USE_BACKEND_API = import.meta.env.VITE_USE_BACKEND_API === 'true';
-
-  // デモモードかどうか（デモ用の場合は固定history、本番用は実際の会話履歴を使用）
-  const IS_DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== 'true'; // デフォルトはtrue
 
   // 固定のhistory（太郎君の投稿のみ）
   const fixedHistory = [
@@ -43,269 +33,60 @@ const DemoSNS = () => {
     setPosts(initialPosts);
   }, []);
 
-  // JSONを抽出する関数（server.jsと同じ）
-  const extractJson = (text) => {
-    const match = text.match(/```json\n([\s\S]*?)\n```/);
-    const jsonString = match ? match[1] : text;
-    return JSON.parse(jsonString.trim());
-  };
-
-  // Gemini APIを呼び出す
-  const callGemini = async (prompt) => {
-    if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
-      throw new Error('GEMINI_API_KEYが設定されていません。.envファイルにVITE_GEMINI_API_KEYを設定してください。');
-    }
-
-    try {
-      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY.trim());
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
-
-      const result = await model.generateContent(prompt);
-      const responseText = result.response.text();
-      return extractJson(responseText);
-    } catch (error) {
-      // クォータ制限エラーの場合、分かりやすいメッセージに変換
-      const errorMsg = error.message || String(error);
-      if (errorMsg.includes('429') || errorMsg.includes('quota') || errorMsg.includes('Quota exceeded')) {
-        throw new Error('Gemini APIの利用制限に達しました。無料プランの制限に達している可能性があります。しばらく待ってから再度お試しください。または、OpenAI APIに切り替えることもできます。');
-      }
-      throw error;
-    }
-  };
-
-  // OpenAI APIを呼び出す
-  const callOpenAI = async (prompt) => {
-    if (!OPENAI_API_KEY) {
-      throw new Error('OPENAI_API_KEYが設定されていません。.envファイルにVITE_OPENAI_API_KEYを設定してください。');
-    }
-
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        response_format: { type: 'json_object' }
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error?.message || 'OpenAI API呼び出しに失敗しました');
-    }
-
-    const data = await response.json();
-    const content = data.choices[0].message.content;
-    return extractJson(content);
-  };
-
-  // server.jsと同じプロンプトを生成
-  const generatePrompt = (text, history) => {
-    const recentHistory = (history || []).slice(-10);
-    const formattedHistory = recentHistory.map(msg => `${msg.sender}: ${msg.text}`).join('\n');
-
-    return `
-      あなたは小中学生が利用する教育用SNSの厳格な見守りAIです。
-      生徒の「今回の発言」を、以下の【判定フロー】に従って厳密に審査してください。
-
-      ## 【判定フロー】(この順番で思考してください)
-
-      ### ステップ1: 不適切な表現の「絶対的」チェック (文脈無視)
-      **文脈や過去の会話の流れは一切無視してください。**
-      発言単体を見て、以下の要素が少しでも含まれる、または連想される場合は、即座に **isAggressive: true** と判定してください。
-      過去の会話で同様の言葉が使われていたとしても、**今回の発言に含まれていればNG**です。
-
-      * **性的な表現 (隠語・伏字・当て字を含む完全禁止)**
-          * 直接的: 陰茎、睾丸、乳房、性交、精子、など医学的名称であっても文脈が理科の授業でなければNG。
-          * 隠語・ネットスラング: ホ別、羽目鳥、4545、0721、抜き、セフレ、パパ活、など。
-          * 伏字: ち〇こ、ま〇こ、など。
-      * **攻撃的・暴力的・差別的な言葉**
-          * 死ね、殺す、ガイジ、ゴミ、カス、うざい、キモい、消えろ。
-      * **犯罪・非行の示唆**
-          * 万引き、窃盗、直結（出会い目的）、違法行為の自慢。
-        **残虐**
-          * ISISのような残虐表現
-
-      ### ステップ2: 文脈的な攻撃性・いじめのチェック (最重要)
-      ステップ1がクリアな場合、**直前の会話の流れ（直近3〜5件）**を見て判定してください。
-      言葉自体が丁寧でも、意味合いとして攻撃的、または**「攻撃的と受け取られるリスクがある」**場合はNGです。
-      **「わかる」「それな」「たしかに」「いやわかる」などの同意語自体は禁止ではありません。**
-      **「疑わしきはNG（ブロック）」の原則で厳しく判断してください。**
-      **「可能性がある」段階で、生徒を守るためにブロックする必要があります。**
-
-      * **同意の対象が曖昧な場合 (厳格に禁止)**
-          * 直近の会話に「自虐」や「悪口」が含まれている場合、その後に「たこ焼きおいしい」などの無関係な話題が挟まっていたとしても、「それな」「わかる」などの同意語は**NG**としてください。
-          * **理由**: 自虐や悪口に対する同意なのか、直前の話題への同意なのかが曖昧になり、結果として自虐・悪口を肯定しているように見え、相手を傷つける可能性があるため。
-          * **例 (NG)**:
-              1. A: 俺ブスじゃね？ (自虐)
-              2. B: たこ焼きおいしい (無関係)
-              3. C: それな (NG！ Aへの同意とも取れるため)
-
-      * **悪口や攻撃への同調・加担**
-          * 誰かが「うざい」「きもい」と言った後の「それな」「わかる」「草」などの同意。
-      * **自虐やネガティブな発言への肯定**
-          * 「俺ブスじゃね？」「私バカだから」への「たしかに」「いやわかる」「ドンマイ（笑）」などの肯定。
-
-      * **冷淡な突き放し・無視**
-          * 真剣な相談に対して「知らんがな」「で？」「勝手にすれば」などの冷たい反応。
-
-
-      ### ステップ3: 文脈との関連性チェック (ステップ1, 2がクリアな場合のみ)
-      ステップ1で問題がなかった場合のみ、会話の流れに沿っているか判断してください。
-
-      ---
-
-      ## フィードバック生成のルール
-      * **isAggressive: true の場合**:
-          * **aggressiveFeedback**: なぜその言葉がいけないのか、小学生にも分かるように優しく、しかし毅然と諭してください。「相手がどう思うか」「公共の場であること」を理由に挙げてください。文脈に関する言及は一切しないでください。
-          * **contextFeedback**: 空文字列 ("") にしてください。
-          * **contextMatchScore**: 強制的に 0 にしてください。
-      
-      * **isAggressive: false の場合**:
-          * **aggressiveFeedback**: 空文字列 ("")。
-          * **contextFeedback**: 会話の流れに沿っているか、誤解を招かないかのアドバイスがあれば記述。問題なければ空文字列。
-          * **contextMatchScore**: 0〜100で採点。
-
-      ---
-
-      ## 入力データ
-      [これまでの会話]
-      ${formattedHistory || "なし"}
-
-      [今回の発言]
-      ${text}
-
-      ---
-
-      ## 出力フォーマット (JSONのみ)
-      \`\`\`json
-      {
-        "isAggressive": boolean,
-        "aggressiveFeedback": "指導コメント(NGの場合のみ)",
-        "contextMatchScore": number,
-        "contextFeedback": "文脈アドバイス(OKの場合のみ)"
-      }
-      \`\`\`
-    `;
-  };
-
-  // AIチェック機能
+  // AIチェック機能（バックエンド呼び出しのみ）
   const performAICheck = async (text) => {
     setIsChecking(true);
     setAiCheckResult(null);
 
     try {
-      let aiResponse;
+      // サーバーのAPIエンドポイントを呼び出す
+      const response = await fetch(`${API_BASE_URL}/api/check-message`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: text,
+          history: fixedHistory
+        })
+      });
 
-      // バックエンドAPIを使用する場合
-      if (USE_BACKEND_API) {
-        const response = await fetch(`${API_BASE_URL}/api/check-message`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            text: text,
-            history: fixedHistory
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error('AIチェックに失敗しました');
-        }
-
-        const data = await response.json();
-        aiResponse = data;
-      } else {
-        // フロントエンドから直接AIを呼び出す
-        // APIキーが設定されていない場合はエラー
-        if (AI_PROVIDER === 'openai') {
-          if (!OPENAI_API_KEY || OPENAI_API_KEY.trim() === '') {
-            throw new Error('OpenAI APIキーが設定されていません。.envファイルにVITE_OPENAI_API_KEYを設定するか、バックエンドAPIを使用してください（VITE_USE_BACKEND_API=true）。');
-          }
-          const prompt = generatePrompt(text, fixedHistory);
-          aiResponse = await callOpenAI(prompt);
-        } else {
-          // デフォルトはGemini
-          if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
-            throw new Error('Gemini APIキーが設定されていません。.envファイルにVITE_GEMINI_API_KEYを設定するか、バックエンドAPIを使用してください（VITE_USE_BACKEND_API=true）。');
-          }
-          const prompt = generatePrompt(text, fixedHistory);
-          aiResponse = await callGemini(prompt);
-        }
-
-        // server.jsと同じ形式に変換
-        let isOk = !aiResponse.isAggressive;
-        const feedbackLines = [];
-
-        if (aiResponse.isAggressive) {
-          if (aiResponse.aggressiveFeedback) {
-            feedbackLines.push(`⚠️ ${aiResponse.aggressiveFeedback}`);
-          } else {
-            feedbackLines.push(`⚠️ 相手を傷つける可能性のある言葉が含まれています。`);
-          }
-        } else {
-          if (aiResponse.contextFeedback) {
-            feedbackLines.push(`🤔 ${aiResponse.contextFeedback}`);
-          }
-        }
-
-        aiResponse = {
-          isOk,
-          feedbackLines,
-          temperature: aiResponse.contextMatchScore || 0
-        };
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'AIチェックに失敗しました');
       }
 
-      // レスポンス形式: { isOk, feedbackLines, temperature }
+      const aiResponse = await response.json();
+
+      // UI表示用にデータを整形
+      let isOk = !aiResponse.isAggressive;
+      const feedbackLines = [];
+
+      if (aiResponse.isAggressive) {
+        if (aiResponse.aggressiveFeedback) {
+          feedbackLines.push(`⚠️ ${aiResponse.aggressiveFeedback}`);
+        } else {
+          feedbackLines.push(`⚠️ 相手を傷つける可能性のある言葉が含まれています。`);
+        }
+      } else {
+        if (aiResponse.contextFeedback) {
+          feedbackLines.push(`🤔 ${aiResponse.contextFeedback}`);
+        }
+      }
+
       const result = {
-        isOk: aiResponse.isOk,
-        feedbackLines: aiResponse.feedbackLines || [],
-        temperature: aiResponse.temperature || 0,
-        level: aiResponse.isOk ? 'safe' : 'danger'
+        isOk,
+        feedbackLines,
+        temperature: aiResponse.contextMatchScore || 0,
+        level: isOk ? 'safe' : 'danger'
       };
 
       setAiCheckResult(result);
     } catch (error) {
       console.error('AIチェックエラー:', error);
-
-      // エラーメッセージを分かりやすく変換
-      let errorMessage = error.message || 'AIチェック中にエラーが発生しました。';
-
-      // クォータ制限エラー（429）の場合、より詳しい情報を表示
-      const errorMsgLower = errorMessage.toLowerCase();
-      if (errorMsgLower.includes('利用制限') || errorMsgLower.includes('quota') || errorMsgLower.includes('429') || errorMsgLower.includes('exceeded')) {
-        errorMessage = '⚠️ APIの利用制限に達しました\n\n' +
-          '【対処方法】\n' +
-          '1. しばらく待ってから再度お試しください（数分〜数時間）\n' +
-          '2. OpenAI APIに切り替える（.envでVITE_AI_PROVIDER=openaiに設定）\n' +
-          '3. 別のAPIキーを使用する\n' +
-          '4. バックエンドAPIを使用する（VITE_USE_BACKEND_API=trueに設定）\n\n' +
-          '※ このエラーは、APIキーの1日の利用制限に達した場合に表示されます。';
-      }
-
-      // APIキーが設定されていない場合のエラー
-      if (errorMessage.includes('APIキーが設定されていません')) {
-        errorMessage = '⚠️ APIキーが設定されていません\n\n' +
-          '【対処方法】\n' +
-          '1. .envファイルにAPIキーを設定する\n' +
-          '   - Gemini: VITE_GEMINI_API_KEY=あなたのAPIキー\n' +
-          '   - OpenAI: VITE_OPENAI_API_KEY=あなたのAPIキー\n' +
-          '2. バックエンドAPIを使用する（VITE_USE_BACKEND_API=trueに設定）\n' +
-          '3. 開発サーバーを再起動する（環境変数の変更を反映するため）';
-      }
-
       setAiCheckResult({
         isOk: false,
-        feedbackLines: [errorMessage],
+        feedbackLines: [`⚠️ エラーが発生しました: ${error.message}`],
         temperature: 0,
         level: 'danger',
         error: true
@@ -314,7 +95,6 @@ const DemoSNS = () => {
       setIsChecking(false);
     }
   };
-
 
   const handleCheck = () => {
     if (!postText.trim()) {
@@ -377,7 +157,7 @@ const DemoSNS = () => {
     }
   };
 
-  // 送信ボタンの有効/無効を判定（isOkがtrueの場合のみ送信可能）
+  // 送信ボタンの有効/無効を判定
   const canPost = aiCheckResult && aiCheckResult.isOk && !isChecking;
 
   return (
@@ -489,4 +269,3 @@ const DemoSNS = () => {
 };
 
 export default DemoSNS;
-
