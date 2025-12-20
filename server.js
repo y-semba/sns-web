@@ -17,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // Reactのビルド済みファイル(distフォルダ)を静的に配信する設定
+const currentDir = process.cwd();
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // APIエンドポイント
