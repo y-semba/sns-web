@@ -133,7 +133,7 @@ const DemoSNS = () => {
       }
     };
 
-    setPosts([newPost, ...posts]);
+    setPosts([posts, ...newPost]);
     setPostText('');
     setAiCheckResult(null);
   };
