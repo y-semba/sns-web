@@ -18,9 +18,9 @@ const Contact = () => {
     setIsSending(true);
 
     // 環境変数からIDを読み込む（コード上にIDは残りません）
-    const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-    const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-    const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+    const SERVICE_ID = process.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = process.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = process.env.VITE_EMAILJS_PUBLIC_KEY;
 
     emailjs
       .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, {
