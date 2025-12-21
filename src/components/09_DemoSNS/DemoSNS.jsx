@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styles from './DemoSNS.module.css'; // GoogleGenerativeAIのインポートは不要になりました
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './DemoSNS.module.css';
 
 const DemoSNS = () => {
   const [postText, setPostText] = useState('');
@@ -7,10 +7,12 @@ const DemoSNS = () => {
   const [isChecking, setIsChecking] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  // APIのURL（環境変数がなければ相対パスを使用）
+  // 自動スクロール用のRef
+  const postsEndRef = useRef(null);
+
+  // APIのURL
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
-  // 固定のhistory（太郎君の投稿のみ）
   const fixedHistory = [
     {
       sender: '太郎',
@@ -18,7 +20,6 @@ const DemoSNS = () => {
     }
   ];
 
-  // 初期投稿データ
   useEffect(() => {
     const initialPosts = [
       {
@@ -33,13 +34,31 @@ const DemoSNS = () => {
     setPosts(initialPosts);
   }, []);
 
-  // AIチェック機能（バックエンド呼び出しのみ）
+  // 投稿が増えたら下にスクロール
+  useEffect(() => {
+    postsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [posts]);
+
   const performAICheck = async (text) => {
     setIsChecking(true);
     setAiCheckResult(null);
 
     try {
-      // サーバーのAPIエンドポイントを呼び出す
+      // ★バックエンドがない状態でテストする場合、ここをコメントアウトしてダミー結果を返すようにすると動きを確認できます
+      /*
+      // ダミーの成功レスポンス（テスト用）
+      setTimeout(() => {
+         setAiCheckResult({
+            isOk: true,
+            feedbackLines: [],
+            temperature: 100,
+            level: 'safe'
+         });
+         setIsChecking(false);
+      }, 1000);
+      return; // ここで処理終了
+      */
+
       const response = await fetch(`${API_BASE_URL}/api/check-message`, {
         method: 'POST',
         headers: {
@@ -58,7 +77,6 @@ const DemoSNS = () => {
 
       const aiResponse = await response.json();
 
-      // UI表示用にデータを整形
       let isOk = !aiResponse.isAggressive;
       const feedbackLines = [];
 
@@ -115,7 +133,6 @@ const DemoSNS = () => {
       return;
     }
 
-    // isOkがfalseの場合は投稿をブロック
     if (!aiCheckResult.isOk) {
       alert('AIチェックで問題が検出されました。内容を見直してください。');
       return;
@@ -133,12 +150,13 @@ const DemoSNS = () => {
       }
     };
 
-    setPosts([posts, ...newPost]);
+    // ★修正箇所：配列の展開方法を修正
+    setPosts([...posts, newPost]);
+
     setPostText('');
     setAiCheckResult(null);
   };
 
-  // 現在の日付を取得
   const getCurrentDate = () => {
     const today = new Date();
     return today.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -157,7 +175,6 @@ const DemoSNS = () => {
     }
   };
 
-  // 送信ボタンの有効/無効を判定
   const canPost = aiCheckResult && aiCheckResult.isOk && !isChecking;
 
   return (
@@ -170,14 +187,11 @@ const DemoSNS = () => {
           AIチェック機能を体験してみましょう。投稿前に、AIがあなたの言葉をチェックします。
         </p>
 
-        {/* SNS風のメインコンテナ */}
         <div className={styles.snsContainer}>
-          {/* 日付表示 */}
           <div className={styles.dateHeader}>
             {getCurrentDate()}
           </div>
 
-          {/* 投稿フィード */}
           <div className={styles.feed}>
             {posts.length === 0 ? (
               <div className={styles.emptyState}>
@@ -199,11 +213,12 @@ const DemoSNS = () => {
                     </div>
                   </div>
                 ))}
+                {/* 自動スクロールのアンカー */}
+                <div ref={postsEndRef} />
               </div>
             )}
           </div>
 
-          {/* AIチェック結果（投稿フィードの下） */}
           {aiCheckResult && (
             <div className={`${styles.aiResult} ${getLevelClass(aiCheckResult.level)}`}>
               <div className={styles.resultHeader}>
@@ -226,7 +241,6 @@ const DemoSNS = () => {
             </div>
           )}
 
-          {/* 入力エリア（下部固定） */}
           <div className={styles.inputArea}>
             <textarea
               className={styles.textarea}
@@ -234,6 +248,7 @@ const DemoSNS = () => {
               value={postText}
               onChange={(e) => {
                 setPostText(e.target.value);
+                // 入力内容が変わったらチェック結果をリセット（ボタンも無効化）
                 setAiCheckResult(null);
               }}
               maxLength={500}
