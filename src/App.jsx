@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Philosophy from './pages/Philosophy/Philosophy';
 import Contact from './pages/Contact/Contact';
