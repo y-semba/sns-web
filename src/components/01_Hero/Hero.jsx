@@ -8,8 +8,8 @@ const Hero = () => {
       {/* コンテンツエリア（これを中心に配置します） */}
       <div className={styles.contentArea}>
         <h1 className={styles.catchCopy}>
-          その言葉、<span className={styles.highlight}>AI</span>が見守ります。<br />
-          Cotoriが提供する<br />新しいSNS教育。
+          その言葉、私たちが見守ります。<br />
+          <span className={styles.highlight}>Cotori</span>が提供する<br />新しいSNS教育。
         </h1>
         <p className={styles.description}>
           Cotoriは、AIによるリアルタイムフィードバックで、<br />

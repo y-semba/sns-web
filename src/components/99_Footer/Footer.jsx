@@ -11,9 +11,17 @@ const Footer = () => {
 
         {/* フッターリンク */}
         <ul className={styles.links}>
-          <li><a href="#company" className={styles.link}>運営会社</a></li>
-          <li><a href="#privacy" className={styles.link}>プライバシーポリシー</a></li>
-          <li><a href="#terms" className={styles.link}>利用規約</a></li>
+          <li>
+            <Link to="/company" className={styles.link}>
+              運営会社
+            </Link>
+          </li>
+          <li>
+            <Link to="/privacy" className={styles.link}>
+              プライバシーポリシー
+            </Link>
+          </li>
+          {/* <li><a href="#terms" className={styles.link}>利用規約</a></li> */}
           <li><Link to="/contact" className={styles.link}>
             お問い合わせ
           </Link>
