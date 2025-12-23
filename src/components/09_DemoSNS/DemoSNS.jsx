@@ -8,7 +8,7 @@ const DemoSNS = () => {
   const [posts, setPosts] = useState([]);
 
   // APIのURL（環境変数がなければ相対パスを使用）
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+  const API_BASE_URL = '';
 
   // 固定のhistory（太郎君の投稿のみ）
   const fixedHistory = [

@@ -1,27 +1,12 @@
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// api/check-message.js
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import dotenv from 'dotenv';
 
-// 環境変数の読み込み
-dotenv.config();
+export default async function handler(req, res) {
+  // VercelはGETなども受け付けるため、POST以外は拒否します
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
 
-// ES Modules環境で __dirname を使うための定型文
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-// Reactのビルド済みファイル(distフォルダ)を静的に配信する設定
-const currentDir = process.cwd();
-app.use(express.static(path.join(__dirname, 'dist')));
-
-// APIエンドポイント
-app.post('/api/check-message', async (req, res) => {
   try {
     const { text, history } = req.body;
     const apiKey = process.env.GEMINI_API_KEY;
@@ -30,13 +15,16 @@ app.post('/api/check-message', async (req, res) => {
       return res.status(500).json({ error: 'API key not configured' });
     }
 
+    // Google Generative AIの初期化
     const genAI = new GoogleGenerativeAI(apiKey);
+    // 元のコードに合わせて gemini-2.5-flash-lite を使用
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
-    // プロンプトの生成
+    // 履歴の整形
     const recentHistory = (history || []).slice(-10);
     const formattedHistory = recentHistory.map(msg => `${msg.sender}: ${msg.text}`).join('\n');
 
+    // プロンプト定義（元のコードの内容を完全移植）
     const prompt = `
       あなたは小中学生が利用する教育用SNSの厳格な見守りAIです。
       生徒の「今回の発言」を、以下の【判定フロー】に従って厳密に審査してください。
@@ -121,28 +109,22 @@ app.post('/api/check-message', async (req, res) => {
       \`\`\`
     `;
 
+    // AIへ送信
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
 
-    // JSON抽出ロジック
+    // JSON抽出ロジック（Markdownのコードブロックを除去）
     const match = responseText.match(/```json\n([\s\S]*?)\n```/);
     const jsonString = match ? match[1] : responseText;
+
+    // JSONパース
     const jsonResponse = JSON.parse(jsonString.trim());
 
-    res.json(jsonResponse);
+    // クライアントへ返す
+    return res.status(200).json(jsonResponse);
 
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: error.message });
+    console.error('API Error:', error);
+    return res.status(500).json({ error: error.message || 'Internal Server Error' });
   }
-});
-
-
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
-const PORT = process.env.PORT || 3002;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+}
