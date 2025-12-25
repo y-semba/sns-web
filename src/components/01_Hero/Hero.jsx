@@ -13,7 +13,7 @@ const Hero = () => {
           <span className={styles.highlight}>Cotori</span>が提供する<br />新しいSNS教育。
         </h1>
         <p className={styles.description}>
-          Cotoriは、業界初、使って学ぶ学校向けのSNSプラットフォームです。<br />
+          Cotoriは、使って学ぶ学校向けのSNSプラットフォームです。<br />
           SNS教材でありながら、実際にコミュニケーションツールとして使える<br />
           プライベートSNS機能を備えています。
         </p>
