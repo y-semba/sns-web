@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
-import logoImage from './FODIS1.png';
 
 const Header = () => {
   // ▼▼▼ ここが抜けていた部分です（スイッチの機能） ▼▼▼
@@ -24,10 +23,11 @@ const Header = () => {
           {/* ロゴクリック時もメニューを閉じるようにしておくと親切です */}
           <Link to="/" onClick={closeMenu}>
             <img
-              src={logoImage}
+              src="/Fodis_web.png"
               alt="株式会社FODIS"
               className={styles.logoImage}
             />
+            FODIS
           </Link>
         </div>
 

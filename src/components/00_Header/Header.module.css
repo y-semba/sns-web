@@ -39,6 +39,7 @@
   color: #333;
   text-decoration: none;
   letter-spacing: 0.05em;
+  display: flex;
 }
 
 /* 通常（PC）時のナビゲーション */
