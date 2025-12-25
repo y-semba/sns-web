@@ -10,7 +10,8 @@ const Merit = () => {
   return (
     <section className={`${styles.meritSection} sectionContainer`}>
       <h2 className={`sectionTitle ${styles.sectionTitle}`}>
-        私たちが実現する未来
+        安心・安全を実現する<br />
+        主な機能
       </h2>
 
       <div className={styles.meritContainer}>
