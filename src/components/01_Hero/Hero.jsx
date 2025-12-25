@@ -14,8 +14,8 @@ const Hero = () => {
         </h1>
         <p className={styles.description}>
           Cotoriは、使って学ぶ学校向けのSNSプラットフォームです。<br />
-          SNS教材でありながら、実際にコミュニケーションツールとして使える<br />
-          プライベートSNS機能を備えています。
+          教材でありながら、実際にコミュニケーションツールとして使える<br />
+          学校内プライベートSNS機能を備えています。
         </p>
         <img
           src={CotoriHeroImage}
