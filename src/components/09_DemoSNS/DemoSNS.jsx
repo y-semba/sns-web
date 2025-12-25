@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './DemoSNS.module.css'; // GoogleGenerativeAIのインポートは不要になりました
+import styles from './DemoSNS.module.css';
 
 const DemoSNS = () => {
   const [postText, setPostText] = useState('');
@@ -7,25 +7,42 @@ const DemoSNS = () => {
   const [isChecking, setIsChecking] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  // APIのURL（環境変数がなければ相対パスを使用）
+  // ▼▼▼ 追加：履歴も動的に変わるためStateで管理します ▼▼▼
+  const [history, setHistory] = useState([]);
+
   const API_BASE_URL = '';
 
-  // 固定のhistory（太郎君の投稿のみ）
-  const fixedHistory = [
-    {
-      sender: '太郎',
-      text: '今日の数学のテスト、範囲どこだっけ？'
-    }
+  // ▼▼▼ 変更：太郎君のセリフパターン（ここで種類を増やせます） ▼▼▼
+  const taroMessages = [
+    '今日の数学のテスト、範囲どこだっけ？',
+    '来週の修学旅行、班分けもう決まった？',
+    '部活の集合時間、30分早まったらしいよ。',
+    '宿題のプリントなくしちゃった…誰か見せてくれない？',
+    '駅前にできた新しいカフェ、放課後行ってみない？',
+    '昨日のドラマ見た？犯人まさかあの人だと思わなかった！'
   ];
 
-  // 初期投稿データ
+  // 初期データ設定（ランダム選択）
   useEffect(() => {
+    // 1. メッセージをランダムに選ぶ
+    const randomMessage = taroMessages[Math.floor(Math.random() * taroMessages.length)];
+
+    // 2. 履歴データを作成
+    const initialHistory = [
+      {
+        sender: '太郎',
+        text: randomMessage
+      }
+    ];
+    setHistory(initialHistory);
+
+    // 3. 投稿データを作成
     const initialPosts = [
       {
         id: 1,
         author: '太郎',
         authorIcon: '👦',
-        text: '今日の数学のテスト、範囲どこだっけ？',
+        text: randomMessage, // ランダムなメッセージをセット
         timestamp: new Date().toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
         aiCheck: { isOk: true, temperature: 95 }
       }
@@ -33,13 +50,12 @@ const DemoSNS = () => {
     setPosts(initialPosts);
   }, []);
 
-  // AIチェック機能（バックエンド呼び出しのみ）
+  // AIチェック機能
   const performAICheck = async (text) => {
     setIsChecking(true);
     setAiCheckResult(null);
 
     try {
-      // サーバーのAPIエンドポイントを呼び出す
       const response = await fetch(`${API_BASE_URL}/api/check-message`, {
         method: 'POST',
         headers: {
@@ -47,7 +63,7 @@ const DemoSNS = () => {
         },
         body: JSON.stringify({
           text: text,
-          history: fixedHistory
+          history: history // ▼▼▼ 変更：ランダム生成されたhistory Stateを使用 ▼▼▼
         })
       });
 
@@ -58,7 +74,6 @@ const DemoSNS = () => {
 
       const aiResponse = await response.json();
 
-      // UI表示用にデータを整形
       let isOk = !aiResponse.isAggressive;
       const feedbackLines = [];
 
@@ -115,7 +130,6 @@ const DemoSNS = () => {
       return;
     }
 
-    // isOkがfalseの場合は投稿をブロック
     if (!aiCheckResult.isOk) {
       alert('AIチェックで問題が検出されました。内容を見直してください。');
       return;
@@ -138,7 +152,6 @@ const DemoSNS = () => {
     setAiCheckResult(null);
   };
 
-  // 現在の日付を取得
   const getCurrentDate = () => {
     const today = new Date();
     return today.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -157,7 +170,6 @@ const DemoSNS = () => {
     }
   };
 
-  // 送信ボタンの有効/無効を判定
   const canPost = aiCheckResult && aiCheckResult.isOk && !isChecking;
 
   return (
@@ -182,7 +194,7 @@ const DemoSNS = () => {
           <div className={styles.feed}>
             {posts.length === 0 ? (
               <div className={styles.emptyState}>
-                <p>まだ投稿がありません。</p>
+                <p>読み込み中...</p>
               </div>
             ) : (
               <div className={styles.postsList}>
@@ -204,7 +216,7 @@ const DemoSNS = () => {
             )}
           </div>
 
-          {/* AIチェック結果（投稿フィードの下） */}
+          {/* AIチェック結果 */}
           {aiCheckResult && (
             <div className={`${styles.aiResult} ${getLevelClass(aiCheckResult.level)}`}>
               <div className={styles.resultHeader}>
@@ -227,7 +239,7 @@ const DemoSNS = () => {
             </div>
           )}
 
-          {/* 入力エリア（下部固定） */}
+          {/* 入力エリア */}
           <div className={styles.inputArea}>
             <textarea
               className={styles.textarea}
