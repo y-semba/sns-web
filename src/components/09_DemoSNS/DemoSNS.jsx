@@ -167,7 +167,8 @@ const DemoSNS = () => {
           Cotori体験版
         </h2>
         <p className={styles.subtitle}>
-          AIチェック機能を体験してみましょう。投稿前に、AIがあなたの言葉をチェックします。
+          AIチェック機能を体験してみましょう。<br></br>
+          投稿前に、AIがあなたの言葉をチェックしてフィードバックを返してくれます。
         </p>
 
         {/* SNS風のメインコンテナ */}
@@ -264,7 +265,7 @@ const DemoSNS = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 
