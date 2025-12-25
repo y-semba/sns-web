@@ -1,18 +1,13 @@
 .meritSection {
-  text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
+  background-color: transparent;
 }
 
+/* タイトル設定 */
 .sectionTitle {
-  /* ▼▼▼ ここを修正・追記 ▼▼▼ */
   width: 100%;
-  /* 横幅を親要素いっぱいに広げる */
   display: block;
-  /* ブロック要素として扱う */
   text-align: center !important;
-  /* 強制的に中央揃えにする */
-
-  /* 既存のデザイン設定 */
   font-size: 2rem;
   font-weight: bold;
   color: #333;
@@ -20,53 +15,42 @@
   line-height: 1.4;
 }
 
-/* サブタイトル「機能紹介」 */
 .subTitle {
+  width: 100%;
+  display: block;
+  text-align: center !important;
   font-size: 1rem;
   color: #007bff;
-  /* ブランドカラー（青）に */
   font-weight: bold;
-  text-align: center;
-  /* 中央揃え */
   margin-bottom: 60px;
-  /* カードとの隙間を広めに */
   letter-spacing: 0.1em;
-  /* 文字間隔を少し開けるとおしゃれ */
 }
 
-/* コンテナ：左右並びにするフレックスボックス */
+/* === カードエリア === */
 .meritContainer {
   display: flex;
   justify-content: center;
-  /* 中央揃え */
   gap: 30px;
-  /* カード間の隙間 */
   max-width: 1100px;
   margin: 0 auto;
 }
 
-/* === カード全体のデザイン === */
 .featureCard {
   flex: 1;
-  /* 左右のカード幅を均等にする */
-  background-color: #EAF6FD;
-  /* 薄い水色の背景 */
-  border: 2px solid #87CBE8;
-  /* 水色の枠線 */
+  /* ▼▼▼ 変更：背景を透明にし、枠線もシンプルに（または削除） ▼▼▼ */
+  background-color: transparent;
+  /* 背景色を透明（白）に */
+  border: 1px solid #ddd;
+  /* 枠線は薄いグレーで控えめに（不要なら none に） */
   border-radius: 15px;
-  /* 角丸 */
   overflow: hidden;
-  /* 角丸からはみ出さないように */
   text-align: left;
-  /* カード内のテキストは基本左揃え */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  /* ほんのり影をつける */
+  /* box-shadow: none; */
+  /* 影も消してフラットにするならコメントアウトを外す */
 }
 
-/* === ヘッダー（青い帯） === */
 .cardHeader {
   background-color: #6CBEE8;
-  /* 濃い水色 */
   padding: 15px;
   text-align: center;
 }
@@ -78,48 +62,34 @@
   font-weight: bold;
 }
 
-/* カードの中身全体 */
 .cardBody {
   padding: 25px 20px;
 }
 
-/* === 上部：イラストとリストのエリア === */
 .topSection {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* 中央寄せ */
   gap: 20px;
   margin-bottom: 25px;
   padding-bottom: 20px;
-  border-bottom: 1px dashed #BDDFF0;
-  /* 区切りの点線 */
+  /* ▼▼▼ 変更：真ん中の線（点線）を削除 ▼▼▼ */
+  border-bottom: none;
 }
 
-/* Merit.module.css に追記 */
-
 .illustrationArea {
-  /* イラストの調整用 */
   flex-shrink: 0;
-  /* ↓↓↓ ここから追加 ↓↓↓ */
-  width: 120px;
-  /* 画像エリアの幅を固定（お好みで調整） */
+  width: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* ↑↑↑ ここまで追加 ↑↑↑ */
 }
 
-/* ↓↓↓ 新しく追加するクラス ↓↓↓ */
 .illustrationImage {
   width: 100%;
-  /* 親要素(illustrationArea)の幅いっぱいに表示 */
   height: auto;
-  /* 高さは自動調整 */
   object-fit: contain;
-  /* 縦横比を崩さずに収める */
-  max-height: 120px;
-  /* 高さが大きくなりすぎないように制限 */
+  max-height: 100px;
 }
 
 .featureList {
@@ -135,13 +105,10 @@
   margin-bottom: 8px;
 }
 
-/* === 下部：オレンジ見出しと説明文 === */
 .orangeTitle {
   color: #E87A5C;
-  /* オレンジ色 */
   font-size: 1.1rem;
   text-align: center;
-  /* 見出しは中央揃え */
   margin-bottom: 15px;
   font-weight: bold;
 }
@@ -151,26 +118,85 @@
   color: #444;
   font-size: 0.95rem;
   text-align: justify;
-  /* 文章を両端揃えにしてきれいに見せる */
 }
 
+/* === 先生向け管理機能 === */
 
-/* ▼▼▼ スマホ対応 ▼▼▼ */
+.teacherSection {
+  max-width: 1100px;
+  margin: 0px auto 0;
+  padding-top: 60px;
+  /* ▼▼▼ 変更：ここにあった区切り線も削除 ▼▼▼ */
+  border-top: none;
+}
+
+.subHeading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.teacherLayout {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.teacherText {
+  flex: 1;
+}
+
+.featureBlock {
+  margin-bottom: 30px;
+}
+
+.blockTitle {
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.featureBlock p {
+  line-height: 1.8;
+  color: #555;
+}
+
+.dashboardWrapper {
+  flex: 1.2;
+}
+
+.dashboardImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+}
+
+/* スマホ対応 */
 @media (max-width: 768px) {
   .meritContainer {
     flex-direction: column;
-    /* 縦並びにする */
-    gap: 40px;
     padding: 0 10px;
   }
 
-  .topSection {
-    /* スマホではイラストとリストも縦並びが見やすい場合 */
-    /* flex-direction: column; */
-    /* gap: 10px; */
+  .teacherLayout {
+    flex-direction: column-reverse;
+    gap: 30px;
   }
 
-  .cardBody {
-    padding: 20px 15px;
+  .dashboardWrapper {
+    width: 100%;
+  }
+
+  .teacherSection {
+    margin-top: 60px;
+    padding-top: 0;
+    /* 線を消したので余白も詰める */
   }
 }

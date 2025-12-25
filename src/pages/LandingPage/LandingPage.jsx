@@ -20,7 +20,7 @@ const LandingPage = () => {
       <Problem />
       <Solution />
       <Merit />
-      <Features />
+      {/* <Features /> */}
       <DemoSNS />
       {/* <Target /> */}
       {/* <Flow /> */}

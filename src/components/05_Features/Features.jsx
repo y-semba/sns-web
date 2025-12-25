@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Features.module.css';
 // 👇 画像をインポート
-import dashboardImage from './dashboard.png';
+// import dashboardImage from './dashboard.png';
 
 const Features = () => {
   return (
@@ -10,30 +10,6 @@ const Features = () => {
         安心・安全を実現する<br />
         主な機能
       </h2>
-
-      {/* === 上段：生徒向け機能（カードで表示） === */}
-      <h3 className={styles.subHeading}>子ども向け機能</h3>
-
-      <div className={styles.featureGrid}>
-        {/* 機能1 */}
-        <div className={styles.card}>
-          <div className={styles.iconWrapper}>💡</div>
-          <h3 className={styles.cardTitle}>AIリアルタイム指導</h3>
-          <p className={styles.cardText}>
-            投稿前にAIが文章を解析。「攻撃的」「いじめ」「文脈逸脱」などのリスクを検知し、送信を未然にブロックします。
-          </p>
-        </div>
-
-        {/* 機能2 */}
-        <div className={styles.card}>
-          <div className={styles.iconWrapper}>❓</div>
-          <h3 className={styles.cardTitle}>「なぜ？」のフィードバック</h3>
-          <p className={styles.cardText}>
-            単に禁止するのではなく、「なぜその言葉が相手を傷つけるのか」を具体的に提示。生徒の自律的な判断力を育てます。
-          </p>
-        </div>
-      </div>
-
       {/* === 下段：先生向け機能（テキスト＋画像） === */}
       <div className={styles.teacherSection}>
         <h3 className={styles.subHeading}>先生向け管理機能</h3>
