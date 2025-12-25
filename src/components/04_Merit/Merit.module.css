@@ -1,101 +1,176 @@
 .meritSection {
-  background-color: transparent;
-  /* 透明 */
-}
-
-.subTitle {
   text-align: center;
-  font-size: 1.2rem;
-  color: #444;
-  /* 背景に合わせて少し濃く */
-  margin-bottom: 60px;
-  line-height: 1.8;
+  padding: 60px 20px;
 }
 
-.meritContainer {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  align-items: center;
-}
-
-.meritBox {
-  display: flex;
-  /* 👇 すりガラス効果 */
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-
-  border-radius: 16px;
-  overflow: hidden;
+.sectionTitle {
+  /* ▼▼▼ ここを修正・追記 ▼▼▼ */
   width: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s;
+  /* 横幅を親要素いっぱいに広げる */
+  display: block;
+  /* ブロック要素として扱う */
+  text-align: center !important;
+  /* 強制的に中央揃えにする */
+
+  /* 既存のデザイン設定 */
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 15px 0;
+  line-height: 1.4;
 }
 
-.meritBox:hover {
-  transform: scale(1.02);
-  /* 少し拡大 */
-  background: rgba(255, 255, 255, 0.9);
+/* サブタイトル「機能紹介」 */
+.subTitle {
+  font-size: 1rem;
+  color: #007bff;
+  /* ブランドカラー（青）に */
+  font-weight: bold;
+  text-align: center;
+  /* 中央揃え */
+  margin-bottom: 60px;
+  /* カードとの隙間を広めに */
+  letter-spacing: 0.1em;
+  /* 文字間隔を少し開けるとおしゃれ */
 }
 
-/* 以下は以前と同じ */
-.imageAreaStudent,
-.imageAreaTeacher {
-  width: 150px;
+/* コンテナ：左右並びにするフレックスボックス */
+.meritContainer {
+  display: flex;
+  justify-content: center;
+  /* 中央揃え */
+  gap: 30px;
+  /* カード間の隙間 */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* === カード全体のデザイン === */
+.featureCard {
+  flex: 1;
+  /* 左右のカード幅を均等にする */
+  background-color: #EAF6FD;
+  /* 薄い水色の背景 */
+  border: 2px solid #87CBE8;
+  /* 水色の枠線 */
+  border-radius: 15px;
+  /* 角丸 */
+  overflow: hidden;
+  /* 角丸からはみ出さないように */
+  text-align: left;
+  /* カード内のテキストは基本左揃え */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  /* ほんのり影をつける */
+}
+
+/* === ヘッダー（青い帯） === */
+.cardHeader {
+  background-color: #6CBEE8;
+  /* 濃い水色 */
+  padding: 15px;
+  text-align: center;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/* カードの中身全体 */
+.cardBody {
+  padding: 25px 20px;
+}
+
+/* === 上部：イラストとリストのエリア === */
+.topSection {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
+  /* 中央寄せ */
+  gap: 20px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #BDDFF0;
+  /* 区切りの点線 */
+}
+
+/* Merit.module.css に追記 */
+
+.illustrationArea {
+  /* イラストの調整用 */
   flex-shrink: 0;
+  /* ↓↓↓ ここから追加 ↓↓↓ */
+  width: 120px;
+  /* 画像エリアの幅を固定（お好みで調整） */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* ↑↑↑ ここまで追加 ↑↑↑ */
 }
 
-.imageAreaStudent {
-  background: linear-gradient(135deg, #64b5f6, #42a5f5);
+/* ↓↓↓ 新しく追加するクラス ↓↓↓ */
+.illustrationImage {
+  width: 100%;
+  /* 親要素(illustrationArea)の幅いっぱいに表示 */
+  height: auto;
+  /* 高さは自動調整 */
+  object-fit: contain;
+  /* 縦横比を崩さずに収める */
+  max-height: 120px;
+  /* 高さが大きくなりすぎないように制限 */
 }
 
-/* グラデーションに変更 */
-.imageAreaTeacher {
-  background: linear-gradient(135deg, #81c784, #66bb6a);
-}
-
-.textArea {
-  padding: 30px;
-  text-align: left;
-}
-
-.textArea h3 {
-  font-size: 1.4rem;
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  font-size: 1.1rem;
   color: #333;
+}
+
+.featureList li {
+  margin-bottom: 8px;
+}
+
+/* === 下部：オレンジ見出しと説明文 === */
+.orangeTitle {
+  color: #E87A5C;
+  /* オレンジ色 */
+  font-size: 1.1rem;
+  text-align: center;
+  /* 見出しは中央揃え */
   margin-bottom: 15px;
-}
-
-.textArea p {
-  font-size: 1rem;
-  color: #555;
-  line-height: 1.7;
-}
-
-@media (max-width: 600px) {
-  .meritBox {
-    flex-direction: column;
-  }
-
-  .imageAreaStudent,
-  .imageAreaTeacher {
-    width: 100%;
-    height: 60px;
-  }
-}
-
-.arrow {
-  font-size: 2rem;
-  color: rgba(0, 91, 234, 0.3);
   font-weight: bold;
 }
 
-/* 矢印も少し青く */
+.description {
+  line-height: 1.8;
+  color: #444;
+  font-size: 0.95rem;
+  text-align: justify;
+  /* 文章を両端揃えにしてきれいに見せる */
+}
+
+
+/* ▼▼▼ スマホ対応 ▼▼▼ */
+@media (max-width: 768px) {
+  .meritContainer {
+    flex-direction: column;
+    /* 縦並びにする */
+    gap: 40px;
+    padding: 0 10px;
+  }
+
+  .topSection {
+    /* スマホではイラストとリストも縦並びが見やすい場合 */
+    /* flex-direction: column; */
+    /* gap: 10px; */
+  }
+
+  .cardBody {
+    padding: 20px 15px;
+  }
+}

@@ -1,49 +1,86 @@
 import React from 'react';
 import styles from './Merit.module.css';
 
+// ▼▼▼ 1. 画像をインポートします（ファイル名が正しいか要確認！） ▼▼▼
+import studentImg from './student.png';
+import teachImg from './teach.png';
+
 const Merit = () => {
   return (
     <section className={`${styles.meritSection} sectionContainer`}>
-      <h2 className="sectionTitle">
+      <h2 className={`sectionTitle ${styles.sectionTitle}`}>
         私たちが実現する未来
       </h2>
-      <p className={styles.subTitle}>
-        目指すのは、AIによる監視ではなく<br />
-        子どもたちの思考力・判断力・表現力の育成です。
-      </p>
 
       <div className={styles.meritContainer}>
-        {/* メリット1: 生徒の成長 */}
-        <div className={styles.meritBox}>
-          <div className={styles.imageAreaStudent}>
-            {/* ここにイラストなどが入るイメージ */}
-            <span>👨‍🎓 子ども</span>
+
+        {/* ▼▼▼ 左のカード：子ども向け機能 ▼▼▼ */}
+        <div className={styles.featureCard}>
+          <div className={styles.cardHeader}>
+            <h3>子ども向け機能</h3>
           </div>
-          <div className={styles.textArea}>
-            <h3>失敗して学び、<br />自分で考える力がつく</h3>
-            <p>
-              チェックボタンを押した瞬間にフィードバックを受けることで、何がダメだったのかをその場で学習。<br />
-              繰り返すうちに、AIの補助がなくとも適切な言葉選びができるようになります。
-            </p>
+
+          <div className={styles.cardBody}>
+            <div className={styles.topSection}>
+              <div className={styles.illustrationArea}>
+                {/* ▼▼▼ 2. src={変数名} の形にします（波括弧が重要） ▼▼▼ */}
+                <img
+                  src={studentImg}
+                  alt="子ども向け機能のイラスト"
+                  className={styles.illustrationImage}
+                />
+              </div>
+              <ul className={styles.featureList}>
+                <li>・フィードバック機能</li>
+                <li>・クラス分析</li>
+              </ul>
+            </div>
+
+            <div className={styles.bottomSection}>
+              <h4 className={styles.orangeTitle}>
+                「気づき」を与えるフィードバック
+              </h4>
+              <p className={styles.description}>
+                Cotoriの最大の特徴は、子どもたちのメッセージをAIが文脈をもとに解析。不適切な表現だけでなく、会話の流れから逸脱した場合や、荒らし行為に興じた場合も含めて適切にリアルタイムの指導をします。多様な表現でのフィードバックで子どもたちに成長を促します。
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* 矢印（PC表示時のみ） */}
-        <div className={styles.arrow}>⬇︎</div>
-
-        {/* メリット2: 学校の安心 */}
-        <div className={styles.meritBox}>
-          <div className={styles.imageAreaTeacher}>
-            <span>🏫 学校・教員</span>
+        {/* ▼▼▼ 右のカード：教職員向け機能 ▼▼▼ */}
+        <div className={styles.featureCard}>
+          <div className={styles.cardHeader}>
+            <h3>教職員向け機能</h3>
           </div>
-          <div className={styles.textArea}>
-            <h3>トラブルを未然に防ぎつつ、<br />ほかの公務に集中できる</h3>
-            <p>
-              SNSトラブルの事後対応に追われる時間を削減。<br />
-              ダッシュボードで生徒の傾向を把握できるため、データに基づいた効果的な指導が可能になります。
-            </p>
+
+          <div className={styles.cardBody}>
+            <div className={styles.topSection}>
+              <div className={styles.illustrationArea}>
+                {/* ▼▼▼ 2. こちらも同様に変数を使います ▼▼▼ */}
+                <img
+                  src={teachImg}
+                  alt="教職員向け機能のイラスト"
+                  className={styles.illustrationImage}
+                />
+              </div>
+              <ul className={styles.featureList}>
+                <li>・指導タイミング評価</li>
+                <li>・個人分析</li>
+                <li>・グループ作成 他</li>
+              </ul>
+            </div>
+
+            <div className={styles.bottomSection}>
+              <h4 className={styles.orangeTitle}>
+                トラブルを早期発見、公務に集中
+              </h4>
+              <p className={styles.description}>
+                教職員用管理画面では、クラス全体の利用状況を可視化し、指導タイミングを提言。また、子どもたちのチャットを分析し、個人の引き継ぎ資料を作成できます。もちろん、誰がどのような不適切な投稿をしようとしてブロックされたか、ログとして確認可能です。
+              </p>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
   );
