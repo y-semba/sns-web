@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Hero.module.css';
+import CotoriHeroImage from './cotori_hero.png'
 
 const Hero = () => {
   return (
@@ -12,10 +13,15 @@ const Hero = () => {
           <span className={styles.highlight}>Cotori</span>が提供する<br />新しいSNS教育。
         </h1>
         <p className={styles.description}>
-          Cotoriは、AIによるリアルタイムフィードバックで、<br />
-          子どもたちの「自律的な判断力」を育む教育プラットフォームです。<br />
-          監視ではなく、気づきを。
+          Cotoriは、業界初、使って学ぶ学校向けのSNSプラットフォームです。<br />
+          SNS教材でありながら、実際にコミュニケーションツールとして使える<br />
+          プライベートSNS機能を備えています。
         </p>
+        <img
+          src={CotoriHeroImage}
+          alt="子ども向け機能のイラスト"
+          className={styles.CotoriHeroImage}
+        />
         {/* <div className={styles.ctaButtons}>
           <a href="#flow" className={`${styles.button} ${styles.buttonPrimary}`}>
             導入の流れを見る

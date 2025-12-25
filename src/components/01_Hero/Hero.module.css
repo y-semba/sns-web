@@ -111,6 +111,26 @@
   pointer-events: none;
 }
 
+.CotoriHeroImage {
+  /* 基本設定 */
+  width: 100%;
+  /* 親要素に対して幅100%（スマホ対応） */
+  height: auto;
+  /* 縦横比を崩さない */
+  display: block;
+  /* ブロック要素にして中央揃えしやすくする */
+
+  /* サイズと配置の調整 */
+  max-width: 600px;
+  /* ★ここ重要：PCで大きくなりすぎないように制限 */
+  margin: 40px auto 0;
+  /* 上に40pxの余白、左右は自動（中央揃え） */
+
+  /* 任意：少し角を丸くしたり、影をつけたりする場合 */
+  /* border-radius: 12px; */
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
+}
+
 /* スマホ対応 */
 @media (max-width: 768px) {
   .catchCopy {
@@ -132,5 +152,11 @@
   .decoCircle {
     width: 300px;
     height: 300px;
+  }
+
+  .CotoriHeroImage {
+    max-width: 90%;
+    /* スマホでは画面端に少し余白を持たせる */
+    margin-top: 30px;
   }
 }
