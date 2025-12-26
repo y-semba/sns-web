@@ -21,7 +21,7 @@ const app = initializeApp(firebaseConfig);
 const vertexAI = getVertexAI(app);
 
 // モデル定義 (Vertex AIなので gemini-2.0-flash でOK)
-const model = getGenerativeModel(vertexAI, { model: "gemini-2.0-flash" });
+const model = getGenerativeModel(vertexAI, { model: "gemini-2.0-flash-lite" });
 
 const DemoSNS = () => {
   const [postText, setPostText] = useState('');
