@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     // Google Generative AIの初期化
     const genAI = new GoogleGenerativeAI(apiKey);
     // 元のコードに合わせて gemini-2.0-flash-lite を使用
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-lite-001' });
 
     // 履歴の整形
     const recentHistory = (history || []).slice(-10);
