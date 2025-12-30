@@ -15,8 +15,14 @@
 /* 画面幅が 768px 以上（タブレット・PC）の場合 */
 @media (min-width: 768px) {
   .solutionContent {
-    grid-template-columns: 1fr 1fr;
-    /* 2カラムレイアウト */
+    /* 変更前: grid-template-columns: 1fr 1fr; （50% : 50%） */
+
+    /* 変更後: 画像エリアを広くする */
+    grid-template-columns: 1.3fr 0.7fr;
+    /* ↑ これで「画像 1.3 : テキスト 0.7」くらいの比率になり、画像スペースが広がります */
+
+    /* もっと極端に画像を目立たせるなら ↓ */
+    /* grid-template-columns: 60% 40%; */
   }
 }
 
