@@ -200,3 +200,45 @@
     /* 線を消したので余白も詰める */
   }
 }
+
+.bottomImagesContainer {
+  display: flex;
+  justify-content: space-between;
+  /* 左右に配置 */
+  gap: 24px;
+  /* 画像間の隙間 */
+  margin-top: 40px;
+  /* 上のセクションとの間隔 */
+  margin-bottom: 40px;
+  /* 下の余白 */
+}
+
+.bottomImageWrapper {
+  flex: 1;
+  /* 2つの画像を均等な幅にする */
+  /* 画像が大きすぎるのを防ぐための最大幅設定（任意で調整してください） */
+  max-width: 50%;
+}
+
+.bottomImage {
+  width: 100%;
+  /* 親要素に合わせてリサイズ */
+  height: auto;
+  /* アスペクト比を維持 */
+  border-radius: 8px;
+  /* 角を少し丸くする（お好みで） */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* 軽い影をつける（お好みで） */
+}
+
+/* レスポンシブ対応：スマホなど画面が狭いときは縦並びにする */
+@media (max-width: 768px) {
+  .bottomImagesContainer {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .bottomImageWrapper {
+    max-width: 100%;
+  }
+}

@@ -5,6 +5,8 @@ import styles from './Merit.module.css';
 import dashboardImage from './dashboard.png';
 import studentImg from './student.png';
 import teachImg from './teach.png';
+import blockCommentImg from './blockcomment.png';
+import observeImg from './observe.png';
 
 const Merit = () => {
   return (
@@ -114,6 +116,23 @@ const Merit = () => {
               className={styles.dashboardImage}
             />
           </div>
+        </div>
+      </div>
+
+      <div className={styles.bottomImagesContainer}>
+        <div className={styles.bottomImageWrapper}>
+          <img
+            src={blockCommentImg}
+            alt="コメントブロック機能のイメージ"
+            className={styles.bottomImage}
+          />
+        </div>
+        <div className={styles.bottomImageWrapper}>
+          <img
+            src={observeImg}
+            alt="見守り機能のイメージ"
+            className={styles.bottomImage}
+          />
         </div>
       </div>
     </section>
