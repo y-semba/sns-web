@@ -1,61 +1,61 @@
-.solution {
-  /* background-color: #f8f9fa; */
-  /* Heroと同じ背景色で統一感を */
-}
+/* Solution.module.css */
 
 .solutionContent {
-  display: grid;
-  grid-template-columns: 1fr;
-  /* スマホでは縦並び（デフォルト） */
+  display: flex;
+  flex-direction: column;
+  /* 常に縦並び（画像が上、テキストが下） */
   gap: 40px;
   align-items: center;
-  text-align: left;
+  /* 中央揃え */
 }
 
-/* 画面幅が 768px 以上（タブレット・PC）の場合 */
+/* 画像エリア */
+.imagePlaceholder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* 画像本体 */
+.solutionImage {
+  width: 100%;
+  height: auto;
+  max-width: 900px;
+  /* ここでお好みの最大サイズを指定 */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* テキストエリア全体の枠 */
+.textBlock {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* スマホでは縦並び */
+  gap: 30px;
+  max-width: 1000px;
+  /* テキストが広がりすぎないように制限 */
+}
+
+/* PC（画面幅 768px以上）のときの設定 */
 @media (min-width: 768px) {
-  .solutionContent {
-    /* 変更前: grid-template-columns: 1fr 1fr; （50% : 50%） */
-
-    /* 変更後: 画像エリアを広くする */
-    grid-template-columns: 1.3fr 0.7fr;
-    /* ↑ これで「画像 1.3 : テキスト 0.7」くらいの比率になり、画像スペースが広がります */
-
-    /* もっと極端に画像を目立たせるなら ↓ */
-    /* grid-template-columns: 60% 40%; */
+  .textBlock {
+    grid-template-columns: 1fr 1fr;
+    /* PCでは2列（横並び）にする */
+    gap: 50px;
+    /* ブロック間の隙間 */
   }
 }
 
-.imagePlaceholder {
-  width: 100%;
-  /* 以前の height: 400px; や background, border は削除します */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 追加した画像自体のスタイル */
-.solutionImage {
-  width: 100%;
-  /* 親要素に合わせて伸縮 */
-  height: auto;
-  /* アスペクト比を維持 */
-  max-width: 1000px;
-  /* ← ここを500pxから700pxに変更しました。お好みで800pxなどにさらに大きくしてもOKです */
-  border-radius: 12px;
-  /* 画像の角を少し丸くする */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  /* 少し影をつけてリッチに見せる */
-}
-
-.textBlock h3 {
+/* 個別の説明ブロック */
+.featureItem h3 {
   font-size: 1.5rem;
   color: #007bff;
-  /* メインカラー */
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.textBlock p {
+.featureItem p {
   font-size: 1.1rem;
   color: #444;
+  line-height: 1.8;
 }
