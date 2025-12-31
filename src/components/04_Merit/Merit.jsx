@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Merit.module.css';
 
-// ▼▼▼ 1. 画像をインポートします（ファイル名が正しいか要確認！） ▼▼▼
+// ▼▼▼ 1. 画像をインポートします ▼▼▼
 import studentImg from './student.png';
 import teachImg from './teach.png';
 import blockCommentImg from './blockcomment.png';
@@ -16,7 +16,7 @@ const Merit = () => {
       </h2>
 
       <div className={styles.meritContainer}>
-
+        {/* ...（上の「子ども向け」「教職員向け」カード部分は変更なしなので省略）... */}
         {/* ▼▼▼ 左のカード：子ども向け機能 ▼▼▼ */}
         <div className={styles.featureCard}>
           <div className={styles.cardHeader}>
@@ -26,7 +26,6 @@ const Merit = () => {
           <div className={styles.cardBody}>
             <div className={styles.topSection}>
               <div className={styles.illustrationArea}>
-                {/* ▼▼▼ 2. src={変数名} の形にします（波括弧が重要） ▼▼▼ */}
                 <img
                   src={studentImg}
                   alt="子ども向け機能のイラスト"
@@ -59,7 +58,6 @@ const Merit = () => {
           <div className={styles.cardBody}>
             <div className={styles.topSection}>
               <div className={styles.illustrationArea}>
-                {/* ▼▼▼ 2. こちらも同様に変数を使います ▼▼▼ */}
                 <img
                   src={teachImg}
                   alt="教職員向け機能のイラスト"
@@ -83,50 +81,57 @@ const Merit = () => {
             </div>
           </div>
         </div>
-
       </div>
 
+      {/* ▼▼▼ ここからレイアウトを変更しました ▼▼▼ */}
       <div className={styles.teacherSection}>
         <h3 className={styles.subHeading}>先生向け管理機能</h3>
 
-        <div className={styles.teacherLayout}>
-          {/* 左側：説明テキスト（元々のカードの文章をここにまとめました） */}
-          <div className={styles.teacherText}>
-            <div className={styles.featureBlock}>
-              <h4 className={styles.blockTitle}>📊 管理ダッシュボード</h4>
+        {/* 新しいラッパー：説明と写真を横並びにするためのコンテナ */}
+        <div className={styles.teacherFeaturesGrid}>
+
+          {/* --- 左側のブロック（写真1とその説明） --- */}
+          <div className={styles.teacherFeatureBlock}>
+            {/* [写真1の説明] */}
+            <div className={styles.featureDescription}>
+              <h4 className={styles.blockTitle}>📊 ブロック機能とログ確認</h4>
               <p>
-                グループの発言内容をAIが解析。指導の必要なタイミングを教えてくれます。
-                ブロックされた投稿の内容を、ひと目で把握できます。
+                誰がどのような不適切な投稿をしようとしてブロックされたか、ひと目で把握できます。トラブルを未然に防ぎ、公務に集中できる環境を作ります。
               </p>
             </div>
-            <div className={styles.featureBlock}>
-              <h4 className={styles.blockTitle}>🏫 クローズドな環境</h4>
-              <p>
-                学校やクラス単位で独立した環境を提供。外部の不特定多数と接触することなく、安全にSNS学習を行えます。
-              </p>
+            {/* [写真1] */}
+            <div className={styles.featureImageWrapper}>
+              <img
+                src={blockCommentImg}
+                alt="コメントブロック機能のイメージ"
+                className={styles.featureImage} // クラス名を変更
+              />
             </div>
           </div>
 
-          {/* 右側：ダッシュボード画像 */}
-        </div>
-      </div>
+          {/* --- 右側のブロック（写真2とその説明） --- */}
+          <div className={styles.teacherFeatureBlock}>
+            {/* [写真2の説明] */}
+            <div className={styles.featureDescription}>
+              <h4 className={styles.blockTitle}>🏫 AI見守りと指導提言</h4>
+              <p>
+                グループの発言内容をAIが解析し、指導が必要なタイミングを教えてくれます。クラス全体の利用状況を可視化し、クローズドな環境で安全に運用できます。
+              </p>
+            </div>
+            {/* [写真2] */}
+            <div className={styles.featureImageWrapper}>
+              <img
+                src={observeImg}
+                alt="見守り機能のイメージ"
+                className={styles.featureImage} // クラス名を変更
+              />
+            </div>
+          </div>
 
-      <div className={styles.bottomImagesContainer}>
-        <div className={styles.bottomImageWrapper}>
-          <img
-            src={blockCommentImg}
-            alt="コメントブロック機能のイメージ"
-            className={styles.bottomImage}
-          />
-        </div>
-        <div className={styles.bottomImageWrapper}>
-          <img
-            src={observeImg}
-            alt="見守り機能のイメージ"
-            className={styles.bottomImage}
-          />
         </div>
       </div>
+      {/* ▲▲▲ 変更ここまで。一番下にあった画像エリアは削除しました ▲▲▲ */}
+
     </section>
   );
 };
