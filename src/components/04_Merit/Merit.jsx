@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Merit.module.css';
 
 // ▼▼▼ 1. 画像をインポートします（ファイル名が正しいか要確認！） ▼▼▼
-import dashboardImage from './dashboard.png';
 import studentImg from './student.png';
 import teachImg from './teach.png';
 import blockCommentImg from './blockcomment.png';
@@ -109,13 +108,6 @@ const Merit = () => {
           </div>
 
           {/* 右側：ダッシュボード画像 */}
-          <div className={styles.dashboardWrapper}>
-            <img
-              src={dashboardImage}
-              alt="先生用管理ダッシュボード画面"
-              className={styles.dashboardImage}
-            />
-          </div>
         </div>
       </div>
 
