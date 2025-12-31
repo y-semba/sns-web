@@ -85,7 +85,7 @@ const Merit = () => {
 
       {/* ▼▼▼ ここからレイアウトを変更しました ▼▼▼ */}
       <div className={styles.teacherSection}>
-        <h3 className={styles.subHeading}>先生向け管理機能</h3>
+        <h3 className={styles.subHeading}>教職員向け管理機能</h3>
 
         {/* 新しいラッパー：説明と写真を横並びにするためのコンテナ */}
         <div className={styles.teacherFeaturesGrid}>
