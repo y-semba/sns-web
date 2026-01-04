@@ -26,7 +26,7 @@
   letter-spacing: 0.1em;
 }
 
-/* === カードエリア === */
+/* === カードエリア（子ども・教職員向け） === */
 .meritContainer {
   display: flex;
   justify-content: center;
@@ -37,16 +37,11 @@
 
 .featureCard {
   flex: 1;
-  /* ▼▼▼ 変更：背景を透明にし、枠線もシンプルに（または削除） ▼▼▼ */
   background-color: transparent;
-  /* 背景色を透明（白）に */
   border: 1px solid #ddd;
-  /* 枠線は薄いグレーで控えめに（不要なら none に） */
   border-radius: 15px;
   overflow: hidden;
   text-align: left;
-  /* box-shadow: none; */
-  /* 影も消してフラットにするならコメントアウトを外す */
 }
 
 .cardHeader {
@@ -73,7 +68,6 @@
   gap: 20px;
   margin-bottom: 25px;
   padding-bottom: 20px;
-  /* ▼▼▼ 変更：真ん中の線（点線）を削除 ▼▼▼ */
   border-bottom: none;
 }
 
@@ -120,13 +114,12 @@
   text-align: justify;
 }
 
-/* === 先生向け管理機能 === */
+/* === 先生向け管理機能（ここから大きく変更） === */
 
 .teacherSection {
   max-width: 1100px;
   margin: 0px auto 0;
   padding-top: 60px;
-  /* ▼▼▼ 変更：ここにあった区切り線も削除 ▼▼▼ */
   border-top: none;
 }
 
@@ -140,105 +133,80 @@
   width: 100%;
 }
 
-.teacherLayout {
+/* 2つの機能を横並びにするグリッド */
+.teacherFeaturesGrid {
   display: flex;
-  align-items: center;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 40px; /* 左右のブロックの間隔 */
+  align-items: flex-start; /* 上揃え */
 }
 
-.teacherText {
-  flex: 1;
+/* 個々の機能ブロック（説明＋画像） */
+.teacherFeatureBlock {
+  flex: 1; /* 均等な幅にする */
+  display: flex;
+  flex-direction: column; /* 上に説明、下に画像を配置 */
+  gap: 20px; /* 説明と画像の間隔 */
 }
 
-.featureBlock {
-  margin-bottom: 30px;
+/* 説明テキスト部分 */
+.featureDescription {
+  /* 必要であれば高さを揃える設定などを追加 */
 }
 
 .blockTitle {
   font-size: 1.2rem;
   color: #007bff;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-weight: bold;
+  text-align: center; /* タイトルを中央寄せ */
 }
 
-.featureBlock p {
+.featureDescription p {
   line-height: 1.8;
   color: #555;
+  text-align: justify; /* 文章を両端揃え */
 }
 
-.dashboardWrapper {
-  flex: 1.2;
+/* 画像の枠 */
+.featureImageWrapper {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 軽い影 */
+  border: 1px solid #eee;
+  background-color: #fff; /* 画像透過部分の背景 */
 }
 
-.dashboardImage {
+/* 画像本体 */
+.featureImage {
   width: 100%;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
+  display: block;
+  object-fit: cover;
 }
 
-/* スマホ対応 */
+
+/* === レスポンシブ対応（スマホなど） === */
 @media (max-width: 768px) {
   .meritContainer {
     flex-direction: column;
     padding: 0 10px;
   }
 
-  .teacherLayout {
-    flex-direction: column-reverse;
-    gap: 30px;
-  }
-
-  .dashboardWrapper {
-    width: 100%;
-  }
-
   .teacherSection {
     margin-top: 60px;
     padding-top: 0;
-    /* 線を消したので余白も詰める */
   }
-}
 
-.bottomImagesContainer {
-  display: flex;
-  justify-content: space-between;
-  /* 左右に配置 */
-  gap: 24px;
-  /* 画像間の隙間 */
-  margin-top: 40px;
-  /* 上のセクションとの間隔 */
-  margin-bottom: 40px;
-  /* 下の余白 */
-}
-
-.bottomImageWrapper {
-  flex: 1;
-  /* 2つの画像を均等な幅にする */
-  /* 画像が大きすぎるのを防ぐための最大幅設定（任意で調整してください） */
-  max-width: 50%;
-}
-
-.bottomImage {
-  width: 100%;
-  /* 親要素に合わせてリサイズ */
-  height: auto;
-  /* アスペクト比を維持 */
-  border-radius: 8px;
-  /* 角を少し丸くする（お好みで） */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  /* 軽い影をつける（お好みで） */
-}
-
-/* レスポンシブ対応：スマホなど画面が狭いときは縦並びにする */
-@media (max-width: 768px) {
-  .bottomImagesContainer {
+  /* 先生向け機能を縦並びにする */
+  .teacherFeaturesGrid {
     flex-direction: column;
-    gap: 16px;
+    gap: 50px;
   }
 
-  .bottomImageWrapper {
-    max-width: 100%;
+  .featureImageWrapper {
+    /* スマホでは影を少し弱くしても良い */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   }
 }
