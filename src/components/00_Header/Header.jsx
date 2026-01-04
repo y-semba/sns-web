@@ -47,6 +47,12 @@ const Header = () => {
         <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ''}`}>
           <ul>
             <li>
+              <Link to="/Company" className={styles.navLink} onClick={closeMenu}>
+                会社概要
+              </Link>
+            </li>
+
+            <li>
               <Link to="/philosophy" className={styles.navLink} onClick={closeMenu}>
                 Cotoriの想い
               </Link>

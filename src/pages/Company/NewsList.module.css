@@ -1,0 +1,133 @@
+/* NewsList.module.css */
+
+/* 代表紹介(representativeSection)と同じ幅・配置にする */
+.newsSection {
+  max-width: 900px;
+  margin: 0 auto 100px;
+  /* 下に余白 */
+  padding: 0 20px;
+  /* スマホで端がくっつかないように */
+}
+
+/* Companyの.sectionTitleと全く同じスタイル */
+.sectionTitle {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #333;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  /* 必要に応じて */
+}
+
+/* タイトルの下の装飾線も同じく */
+.sectionTitle::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #007bff;
+  margin: 15px auto 0;
+}
+
+/* グリッドレイアウト */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* PCは3列 */
+  gap: 30px;
+  /* カード間の隙間 */
+}
+
+/* カード本体 */
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  /* profileImageと同じ角丸 */
+  overflow: hidden;
+  text-decoration: none;
+  /* 通常時は薄い影 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  /* 高さを揃える */
+}
+
+/* ホバー時の動き（profileImageの影に近づける） */
+.card:hover {
+  transform: translateY(-5px);
+  /* ホバー時にCompanyの画像と同じような濃い影にする */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 画像エリア */
+.imageWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* 比率を固定 */
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 画像がないとき */
+.noImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 0.8rem;
+}
+
+/* テキストエリア */
+.content {
+  padding: 20px;
+  flex: 1;
+  /* 高さが足りない時に伸びるように */
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  display: block;
+  font-size: 0.85rem;
+  color: #007bff;
+  /* subTitleと同じ青色を使用 */
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  color: #333;
+  /* mainTitleと同じ黒 */
+  line-height: 1.6;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* ▼▼▼ スマホ対応 (768px以下) ▼▼▼ */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    /* 1列にする */
+    gap: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    /* スマホでは少し小さく */
+  }
+}

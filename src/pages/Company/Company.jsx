@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Header from '../../components/00_Header/Header';
 import Footer from '../../components/99_Footer/Footer';
 import styles from './Company.module.css';
-
+import NewsList from './NewsList';
 
 import myPhoto from './aboabo.jpg';
 
@@ -66,7 +66,7 @@ const Company = () => {
                   大阪芸術大学写真学科を優秀賞で卒業後、表現と教育との関わりに強い関心を抱き、小学校教育を専門とする大学で研究・実践を積む。
                   教育現場での体験から、ICTやSNSが教育にもたらす可能性と課題を目の当たりにし、子ども自身が言葉を推敲し他者とつながる力を育つコミュニケーション環境の必要性を強く感じるようになる。
 
-                  こうした背景からAIによる言語フィードバックと送信制御を組み合わせた 教育SNS「Cotori」 を構想・開発。
+                  こうした背景SNSからSNS教育教材「Cotori」 を構想・開発。
                   トラブル防止だけでなく、言葉を育てる体験設計に重点を置くプロダクトとして実装を進めている。<br></br><br></br>
 
                   2020年　三田学園高等学校　卒業<br></br>
@@ -81,7 +81,7 @@ const Company = () => {
               <h3 className={styles.historyTitle}>受賞・活動歴</h3>
               <ul className={styles.historyList}>
                 <li>
-                  <span className={styles.year}>2025年 10月</span>
+                  <span className={styles.year}>2025年　10月</span>
                   <span className={styles.event}>学びを助ける支援ツール体験展示会　(主催　スノーキャンパス　公益財団法人ヤマト福祉財団 障害者福祉助成金)</span>
                 </li>
                 <li>
@@ -95,6 +95,10 @@ const Company = () => {
                 {/* 必要に応じて行を増やしてください */}
               </ul>
             </div>
+          </div>
+
+          <div className={styles.newsSection}>
+            <NewsList />
           </div>
 
         </div>
