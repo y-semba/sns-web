@@ -1,4 +1,8 @@
 /* 既存のスタイル */
+* {
+  box-sizing: border-box;
+}
+
 .pageWrapper {
   display: flex;
   flex-direction: column;
@@ -72,12 +76,13 @@
 .sectionTitle {
   font-size: 1.8rem;
   text-align: center;
-  margin-bottom: 50px;
   color: #333;
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto 50px;
+  /* 上0、左右自動（中央）、下50px */
+
+  /* これを追加して、inline-blockのような振る舞いにしつつ安全にする */
+  width: fit-content;
+  display: block;
 }
 
 /* タイトルの下の装飾線 */
@@ -220,7 +225,7 @@
 
   .infoRow dt,
   .infoRow dd {
-    width: 100%;
+    /* width: 100%; */
   }
 
   .infoRow dt {
